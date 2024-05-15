@@ -19,7 +19,7 @@ public class EmergencyContactsEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     @Column(name = "relation", nullable = false)

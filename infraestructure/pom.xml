@@ -6,8 +6,15 @@
         <artifactId>ms-paciente</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.codigo</groupId>
     <artifactId>infraestructure</artifactId>
     <name>Archetype - infraestructure</name>
+    <version>0.0.1</version>
     <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>com.codigo.clinica</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 </project>

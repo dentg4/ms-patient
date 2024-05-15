@@ -60,9 +60,9 @@ public class PatientEntity {
     @Column(name = "dateDelet")
     private Timestamp dateDelet;
 
-    @OneToMany(mappedBy = "paciente",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     private List<EmergencyContactsEntity> emergencyContacts;
 
-    @OneToMany(mappedBy = "stories",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     private List<StoriesEntity> stories;
 }
