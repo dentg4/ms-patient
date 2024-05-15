@@ -6,8 +6,8 @@ import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactR
 import com.codigo.clinica.mspaciente.domain.ports.out.EmergencyContactServiceOut;
 import com.codigo.clinica.mspaciente.infraestructure.dao.EmergencyContactRepository;
 import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
-import com.codigo.clinica.mspaciente.infraestructure.entity.EmergencyContactsEntity;
-import com.codigo.clinica.mspaciente.infraestructure.entity.PatientEntity;
+import com.codigo.clinica.mspaciente.infraestructure.entity.EmergencyContact;
+import com.codigo.clinica.mspaciente.infraestructure.entity.Patient;
 import com.codigo.clinica.mspaciente.infraestructure.mapper.EmergencyContactMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     private final PatientRepository patientRepository;
     @Override
     public EmergencyContactDTO crearEmergencyContactOut(EmergencyContactRequest request) {
-        EmergencyContactsEntity emergencyContacts=getEmergencyContactCreate(request);
+        EmergencyContact emergencyContacts=getEmergencyContactCreate(request);
 
         return EmergencyContactMapper.fromEntity(emergencyContactRepository.save(emergencyContacts));
     }
@@ -49,17 +49,17 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
         return null;
     }
 
-    private EmergencyContactsEntity getEmergencyContactCreate(EmergencyContactRequest request){
-        EmergencyContactsEntity entity= new EmergencyContactsEntity();
+    private EmergencyContact getEmergencyContactCreate(EmergencyContactRequest request){
+        EmergencyContact entity= new EmergencyContact();
         getEntity(entity, request);
-        entity.setState(Constants.STATUS_ACTIVE);
-        entity.setUsuaCrea(Constants.USU_ADMIN);
-        entity.setDateCreate(getTimestamp());
+        entity.setStatus(Constants.STATUS_ACTIVE);
+        entity.setCreatedBy(Constants.USU_ADMIN);
+        entity.setCreatedOn(getTimestamp());
         return entity;
     }
-    private void getEntity(EmergencyContactsEntity entity,EmergencyContactRequest request) {
+    private void getEntity(EmergencyContact entity,EmergencyContactRequest request) {
 
-        PatientEntity patient = patientRepository.findById(request.getId_patient()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+        Patient patient = patientRepository.findById(request.getId_patient()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
         entity.setName(request.getName());
         entity.setPhone(request.getPhone());
