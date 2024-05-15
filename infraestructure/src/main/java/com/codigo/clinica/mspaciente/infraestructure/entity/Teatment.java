@@ -1,7 +1,6 @@
 package com.codigo.clinica.mspaciente.infraestructure.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
@@ -9,13 +8,12 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "teatments")
 @Getter
 @Setter
-public class Teatments {
+public class Teatment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

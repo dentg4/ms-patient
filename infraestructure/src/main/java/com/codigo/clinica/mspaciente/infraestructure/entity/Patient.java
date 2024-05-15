@@ -42,7 +42,7 @@ public class Patient {
     @Column(name = "email")
     private String email;
 
-    @Lob
+//    @Lob
     @Column(name = "address")
     private String address;
 
@@ -68,9 +68,9 @@ public class Patient {
     @Column(name = "deleted_on")
     private Timestamp deletedOn;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private List<EmergencyContacts> emergencyContacts;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<EmergencyContact> emergencyContacts;
 
-    @OneToMany(mappedBy = "stories", cascade = CascadeType.ALL)
-    private List<Stories> stories;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Story> stories;
 }

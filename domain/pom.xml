@@ -6,8 +6,8 @@
         <artifactId>ms-paciente</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.codigo</groupId>
     <artifactId>domain</artifactId>
     <name>Archetype - domain</name>
+    <version>0.0.1</version>
     <url>http://maven.apache.org</url>
 </project>

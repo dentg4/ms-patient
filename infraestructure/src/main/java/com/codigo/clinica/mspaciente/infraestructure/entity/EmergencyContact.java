@@ -9,19 +9,23 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "stories")
+@Table(name = "emergency_contacts")
 @Getter
 @Setter
-public class Stories {
+public class EmergencyContact {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "condition", nullable = false)
-    private String condition;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "observations")
-    private String observations;
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @Column(name = "relation", nullable = false)
+    private String relation;
 
     @Min(0) @Max(1)
     @Column(name = "status", nullable = false)
@@ -49,4 +53,3 @@ public class Stories {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 }
-
