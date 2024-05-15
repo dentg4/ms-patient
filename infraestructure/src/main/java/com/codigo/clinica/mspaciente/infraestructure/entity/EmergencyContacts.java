@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "emergency_contacts")
 @Getter
 @Setter
-public class EmergencyContactsEntity {
+public class EmergencyContacts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,6 @@ public class EmergencyContactsEntity {
 
     @Column(name = "relation", nullable = false)
     private String relation;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private PatientEntity patient;
 
     @Column(name = "state", nullable = false)
     private Integer state;
@@ -49,4 +45,8 @@ public class EmergencyContactsEntity {
 
     @Column(name = "dateDelet")
     private Timestamp dateDelet;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 }
