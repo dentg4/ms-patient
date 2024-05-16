@@ -12,11 +12,11 @@ public class StoryDTO {
     private String condition;
     private String observations;
     private PatientDTO patient;
-    private Integer state;
-    private String usuaCrea;
-    private Timestamp dateCreate;
-    private String usuaModif;
-    private Timestamp dateModif;
-    private String usuaDelet;
-    private Timestamp dateDelet;
+    private Integer status;
+    private String createdBy;
+    private Timestamp createOn;
+    private String updatedBy;
+    private Timestamp updatedOn;
+    private String deletedBy;
+    private Timestamp deletedOn;
 }
