@@ -15,13 +15,13 @@ public class PatientMapper {
                 .phone(entity.getPhone())
                 .email(entity.getEmail())
                 .address(entity.getAddress())
-                .state(entity.getStatus())
-                .usuaCrea(entity.getCreatedBy())
-                .dateCreate(entity.getCreatedOn())
-                .usuaModif(entity.getUpdatedBy())
-                .dateModif(entity.getUpdatedOn())
-                .usuaDelet(entity.getDeletedBy())
-                .dateDelet(entity.getDeletedOn())
+                .status(entity.getStatus())
+                .createdBy(entity.getCreatedBy())
+                .createOn(entity.getCreatedOn())
+                .updatedBy(entity.getUpdatedBy())
+                .updatedOn(entity.getUpdatedOn())
+                .deletedBy(entity.getDeletedBy())
+                .deletedOn(entity.getDeletedOn())
                 .build();
     }
 }

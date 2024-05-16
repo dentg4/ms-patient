@@ -11,13 +11,13 @@ public class EmergencyContactMapper {
                 .relation(entity.getRelation())
                 .name(entity.getName())
                 .patient(PatientMapper.fromEntity(entity.getPatient()))
-                .state(entity.getStatus())
-                .usuaCrea(entity.getCreatedBy())
-                .dateCreate(entity.getCreatedOn())
-                .usuaModif(entity.getUpdatedBy())
-                .dateModif(entity.getUpdatedOn())
-                .usuaDelet(entity.getDeletedBy())
-                .dateDelet(entity.getDeletedOn())
+                .status(entity.getStatus())
+                .createdBy(entity.getCreatedBy())
+                .createOn(entity.getCreatedOn())
+                .updatedBy(entity.getUpdatedBy())
+                .updatedOn(entity.getUpdatedOn())
+                .deletedBy(entity.getDeletedBy())
+                .deletedOn(entity.getDeletedOn())
                 .build();
     }
 }

@@ -21,13 +21,13 @@ public class PatientDTO {
     private String phone;
     private String email;
     private String address;
-    private Integer state;
-    private String usuaCrea;
-    private Timestamp dateCreate;
-    private String usuaModif;
-    private Timestamp dateModif;
-    private String usuaDelet;
-    private Timestamp dateDelet;
+    private Integer status;
+    private String createdBy;
+    private Timestamp createOn;
+    private String updatedBy;
+    private Timestamp updatedOn;
+    private String deletedBy;
+    private Timestamp deletedOn;
     private List<EmergencyContactDTO> emergencyContacts;
     private List<StoryDTO> stories;
 }

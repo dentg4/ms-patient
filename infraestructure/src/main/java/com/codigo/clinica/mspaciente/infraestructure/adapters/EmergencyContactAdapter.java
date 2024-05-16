@@ -31,7 +31,8 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
 
     @Override
     public Optional<EmergencyContactDTO> buscarPorIdOut(Long id) {
-        return Optional.empty();
+        EmergencyContact emergencyContact=emergencyContactRepository.findById(id).orElseThrow(()-> new RuntimeException("Contacto de emergencia no encontrado."));
+        return Optional.of(EmergencyContactMapper.fromEntity(emergencyContact));
     }
 
     @Override
