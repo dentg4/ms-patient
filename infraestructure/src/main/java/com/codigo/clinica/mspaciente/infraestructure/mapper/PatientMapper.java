@@ -1,15 +1,15 @@
 package com.codigo.clinica.mspaciente.infraestructure.mapper;
 
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDto;
 import com.codigo.clinica.mspaciente.infraestructure.entity.Patient;
 
 public class PatientMapper {
-    public static PatientDTO fromEntity(Patient entity){
-        return PatientDTO.builder()
+    public static PatientDto fromEntity(Patient entity){
+        return PatientDto.builder()
                 .idPatient(entity.getId())
                 .name(entity.getName())
                 .surname(entity.getSurname())
-                .numeroDocumento(entity.getIdentificationNumber())
+                .identificationNumber(entity.getIdentificationNumber())
                 .birthDate(entity.getBirthDate())
                 .gender(entity.getGender())
                 .phone(entity.getPhone())

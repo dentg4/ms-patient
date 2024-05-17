@@ -1,7 +1,7 @@
 package com.codigo.clinica.mspaciente.infraestructure.adapters;
 
 import com.codigo.clinica.mspaciente.domain.aggregates.constants.Constants;
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.out.EmergencyContactServiceOut;
 import com.codigo.clinica.mspaciente.infraestructure.dao.EmergencyContactRepository;
@@ -9,6 +9,7 @@ import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infraestructure.entity.EmergencyContact;
 import com.codigo.clinica.mspaciente.infraestructure.entity.Patient;
 import com.codigo.clinica.mspaciente.infraestructure.mapper.EmergencyContactMapper;
+import com.codigo.clinica.mspaciente.infraestructure.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,31 +23,33 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
 
     private final EmergencyContactRepository emergencyContactRepository;
     private final PatientRepository patientRepository;
+    private final RedisService redisService;
+
     @Override
-    public EmergencyContactDTO crearEmergencyContactOut(EmergencyContactRequest request) {
+    public EmergencyContactDto createEmergencyContactOut(EmergencyContactRequest request) {
         EmergencyContact emergencyContacts=getEmergencyContactCreate(request);
 
         return EmergencyContactMapper.fromEntity(emergencyContactRepository.save(emergencyContacts));
     }
 
     @Override
-    public Optional<EmergencyContactDTO> buscarPorIdOut(Long id) {
+    public Optional<EmergencyContactDto> findByIdOut(Long id) {
         EmergencyContact emergencyContact=emergencyContactRepository.findById(id).orElseThrow(()-> new RuntimeException("Contacto de emergencia no encontrado."));
         return Optional.of(EmergencyContactMapper.fromEntity(emergencyContact));
     }
 
     @Override
-    public List<EmergencyContactDTO> obtenerTodosOut() {
+    public List<EmergencyContactDto> getAllOut() {
         return null;
     }
 
     @Override
-    public EmergencyContactDTO actualizarOut(Long id, EmergencyContactRequest request) {
+    public EmergencyContactDto updateOut(Long id, EmergencyContactRequest request) {
         return null;
     }
 
     @Override
-    public EmergencyContactDTO deleteOut(Long id) {
+    public EmergencyContactDto deleteOut(Long id) {
         return null;
     }
 
@@ -60,7 +63,7 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     }
     private void getEntity(EmergencyContact entity,EmergencyContactRequest request) {
 
-        Patient patient = patientRepository.findById(request.getId_patient()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+        Patient patient = patientRepository.findById(request.getPatientId()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
         entity.setName(request.getName());
         entity.setPhone(request.getPhone());

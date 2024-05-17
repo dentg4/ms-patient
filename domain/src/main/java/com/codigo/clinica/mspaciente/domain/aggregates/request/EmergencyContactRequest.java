@@ -1,6 +1,5 @@
 package com.codigo.clinica.mspaciente.domain.aggregates.request;
 
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,5 +11,5 @@ public class EmergencyContactRequest {
     private String name;
     private String phone;
     private String relation;
-    private Long id_patient;
+    private Long patientId;
 }

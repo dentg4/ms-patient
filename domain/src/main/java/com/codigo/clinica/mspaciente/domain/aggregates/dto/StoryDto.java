@@ -9,12 +9,11 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Builder
-public class EmergencyContactDTO {
+public class StoryDto {
     private Long id;
-    private String name;
-    private String phone;
-    private String relation;
-    private PatientDTO patient;
+    private String condition;
+    private String observations;
+    private PatientDto patient;
     private Integer status;
     private String createdBy;
     private Timestamp createOn;

@@ -1,15 +1,15 @@
 package com.codigo.clinica.mspaciente.domain.ports.in;
 
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EmergencyContactServiceIn {
-    EmergencyContactDTO crearEmergencyContactIn(EmergencyContactRequest request);
-    Optional<EmergencyContactDTO> buscarPorIdIn(Long id);
-    List<EmergencyContactDTO> obtenerTodosIn();
-    EmergencyContactDTO actualizarIn(Long id, EmergencyContactRequest request);
-    EmergencyContactDTO deleteIn(Long id);
+    EmergencyContactDto createEmergencyContactIn(EmergencyContactRequest request);
+    Optional<EmergencyContactDto> findByIdIn(Long id);
+    List<EmergencyContactDto> getAllIn();
+    EmergencyContactDto updateIn(Long id, EmergencyContactRequest request);
+    EmergencyContactDto deleteIn(Long id);
 }
