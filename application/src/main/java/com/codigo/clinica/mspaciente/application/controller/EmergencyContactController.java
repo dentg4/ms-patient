@@ -1,6 +1,6 @@
 package com.codigo.clinica.mspaciente.application.controller;
 
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.EmergencyContactServiceIn;
 import lombok.AllArgsConstructor;
@@ -18,9 +18,9 @@ public class EmergencyContactController {
     private final EmergencyContactServiceIn emergencyContactServiceIn;
 
     @PostMapping
-    public ResponseEntity<EmergencyContactDTO> createEmergencyContact(@RequestBody EmergencyContactRequest request){
+    public ResponseEntity<EmergencyContactDto> createEmergencyContact(@RequestBody EmergencyContactRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(emergencyContactServiceIn.crearEmergencyContactIn(request));
+                .body(emergencyContactServiceIn.createEmergencyContactIn(request));
     }
 }

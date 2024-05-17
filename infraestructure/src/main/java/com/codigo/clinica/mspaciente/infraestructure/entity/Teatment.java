@@ -26,10 +26,10 @@ public class Teatment {
     private double cost;
 
     @Column(name = "start_date", nullable = false)
-    private LocalDate start_date;
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDate end_date;
+    private LocalDate endDate;
 
     @Min(0) @Max(1)
     @Column(name = "status", nullable = false)

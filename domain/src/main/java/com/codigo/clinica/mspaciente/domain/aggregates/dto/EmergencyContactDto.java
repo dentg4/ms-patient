@@ -1,5 +1,6 @@
 package com.codigo.clinica.mspaciente.domain.aggregates.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,11 +8,13 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class StoryDTO {
+@Builder
+public class EmergencyContactDto {
     private Long id;
-    private String condition;
-    private String observations;
-    private PatientDTO patient;
+    private String name;
+    private String phone;
+    private String relation;
+    private PatientDto patient;
     private Integer status;
     private String createdBy;
     private Timestamp createOn;

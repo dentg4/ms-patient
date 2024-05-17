@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class PatientRequest {
-    private String numeroDoc;
-    private LocalDate birthDate;
-    private String gender;
-    private String phone;
-    private String email;
+public class TeatmentRequest {
+    private String description;
+    private double cost;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Long patientId;
 }
