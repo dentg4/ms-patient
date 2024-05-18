@@ -14,6 +14,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PatientImpl implements PatientServiceIn {
 
+    //private final PatientServiceOut patientServiceOut;
+
     @Override
     public PatientDto createPatienIn(PatientRequest request) {
         return null;

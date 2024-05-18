@@ -15,12 +15,14 @@ public class PatientDto {
     private Long idPatient;
     private String name;
     private String surname;
+    private String identificationType;
     private String identificationNumber;
     private LocalDate birthDate;
     private String gender;
     private String phone;
     private String email;
     private String address;
+    private String allergies;
     private Integer status;
     private String createdBy;
     private Timestamp createOn;
@@ -29,6 +31,6 @@ public class PatientDto {
     private String deletedBy;
     private Timestamp deletedOn;
     private List<EmergencyContactDto> emergencyContacts;
-    private List<StoryDto> stories;
+    private List<MedicalRecordDto> stories;
     private List<TeatmentDto> teatments;
 }

@@ -10,9 +10,11 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class PatientRequest {
-    private String numeroDoc;
+    private String identificationType;
+    private String identificationNumber;
     private LocalDate birthDate;
     private String gender;
     private String phone;
     private String email;
+    private String allergies;
 }
