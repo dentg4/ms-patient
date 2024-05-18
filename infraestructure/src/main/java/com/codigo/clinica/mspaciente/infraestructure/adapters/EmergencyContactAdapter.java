@@ -24,33 +24,39 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     private final PatientRepository patientRepository;
     @Override
     public EmergencyContactDTO crearEmergencyContactOut(EmergencyContactRequest request) {
-        EmergencyContact emergencyContacts=getEmergencyContactCreate(request);
+        EmergencyContact emergencyContacts = propertyCreate(request);
 
         return EmergencyContactMapper.fromEntity(emergencyContactRepository.save(emergencyContacts));
     }
 
     @Override
     public Optional<EmergencyContactDTO> buscarPorIdOut(Long id) {
-        EmergencyContact emergencyContact=emergencyContactRepository.findById(id).orElseThrow(()-> new RuntimeException("Contacto de emergencia no encontrado."));
+        EmergencyContact emergencyContact = findByIdEmergencyContact(id);
         return Optional.of(EmergencyContactMapper.fromEntity(emergencyContact));
     }
 
     @Override
     public List<EmergencyContactDTO> obtenerTodosOut() {
-        return null;
+        List<EmergencyContact> list = emergencyContactRepository.findAll();
+        return list.stream().map(EmergencyContactMapper::fromEntity).toList();
     }
 
     @Override
     public EmergencyContactDTO actualizarOut(Long id, EmergencyContactRequest request) {
-        return null;
+        EmergencyContact emergencyContact = findByIdEmergencyContact(id);
+
+        return EmergencyContactMapper
+                .fromEntity(emergencyContactRepository.save(propertyUpdate(emergencyContact, request)));
     }
 
     @Override
     public EmergencyContactDTO deleteOut(Long id) {
-        return null;
+        EmergencyContact emergencyContact =  findByIdEmergencyContact(id);
+
+        return EmergencyContactMapper.fromEntity(emergencyContactRepository.save(propertyDelete(emergencyContact)));
     }
 
-    private EmergencyContact getEmergencyContactCreate(EmergencyContactRequest request){
+    private EmergencyContact propertyCreate(EmergencyContactRequest request){
         EmergencyContact entity= new EmergencyContact();
         getEntity(entity, request);
         entity.setStatus(Constants.STATUS_ACTIVE);
@@ -58,9 +64,22 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
         entity.setCreatedOn(getTimestamp());
         return entity;
     }
+    private EmergencyContact propertyUpdate(EmergencyContact entity, EmergencyContactRequest request){
+        getEntity(entity,request);
+        entity.setUpdatedBy(Constants.USU_ADMIN);
+        entity.setUpdatedOn(getTimestamp());
+        return entity;
+    }
+    private EmergencyContact propertyDelete(EmergencyContact entity){
+        entity.setStatus(Constants.STATUS_INACTIVE);
+        entity.setDeletedBy(Constants.USU_ADMIN);
+        entity.setDeletedOn(getTimestamp());
+        return entity;
+    }
     private void getEntity(EmergencyContact entity,EmergencyContactRequest request) {
 
-        Patient patient = patientRepository.findById(request.getId_patient()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+        Patient patient = patientRepository.findById(request.getId_patient())
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
         entity.setName(request.getName());
         entity.setPhone(request.getPhone());
@@ -71,5 +90,9 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     private Timestamp getTimestamp(){
         long currenTIme = System.currentTimeMillis();
         return new Timestamp(currenTIme);
+    }
+    private EmergencyContact findByIdEmergencyContact(Long id){
+        return emergencyContactRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Contacto de emergencia no encontrado."));
     }
 }
