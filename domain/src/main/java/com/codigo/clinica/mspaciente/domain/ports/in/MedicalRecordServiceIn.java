@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MedicalRecordServiceIn {
-    MedicalRecordDto createStoryIn(MedicalRecordRequest request);
+    MedicalRecordDto createMedicalRecordIn(MedicalRecordRequest request);
     Optional<MedicalRecordDto> findByIdIn(Long id);
     List<MedicalRecordDto> getAllIn();
     MedicalRecordDto updateIn(Long id, MedicalRecordRequest request);
