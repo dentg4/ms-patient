@@ -6,8 +6,8 @@ import com.codigo.clinica.mspaciente.domain.aggregates.request.MedicalRecordRequ
 import java.util.List;
 import java.util.Optional;
 
-public interface MedicalRecordOut {
-    MedicalRecordDto createStory(MedicalRecordRequest request);
+public interface MedicalRecordServiceOut {
+    MedicalRecordDto createMedicalRecordOut(MedicalRecordRequest request);
     Optional<MedicalRecordDto> findByIdOut(Long id);
     List<MedicalRecordDto> getAllOut();
     MedicalRecordDto updateOut(Long id, MedicalRecordRequest request);

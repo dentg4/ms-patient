@@ -3,6 +3,7 @@ package com.codigo.clinica.mspaciente.domain.impl;
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.MedicalRecordDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.MedicalRecordRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.MedicalRecordServiceIn;
+import com.codigo.clinica.mspaciente.domain.ports.out.MedicalRecordServiceOut;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,28 +13,31 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class MedicalRecordImpl implements MedicalRecordServiceIn {
+
+    private final MedicalRecordServiceOut medicalRecordServiceOut;
+
     @Override
-    public MedicalRecordDto createStoryIn(MedicalRecordRequest request) {
-        return null;
+    public MedicalRecordDto createMedicalRecordIn(MedicalRecordRequest request) {
+        return medicalRecordServiceOut.createMedicalRecordOut(request);
     }
 
     @Override
     public Optional<MedicalRecordDto> findByIdIn(Long id) {
-        return Optional.empty();
+        return medicalRecordServiceOut.findByIdOut(id);
     }
 
     @Override
     public List<MedicalRecordDto> getAllIn() {
-        return List.of();
+        return medicalRecordServiceOut.getAllOut();
     }
 
     @Override
     public MedicalRecordDto updateIn(Long id, MedicalRecordRequest request) {
-        return null;
+        return medicalRecordServiceOut.updateOut(id, request);
     }
 
     @Override
     public MedicalRecordDto deleteIn(Long id) {
-        return null;
+        return medicalRecordServiceOut.deleteOut(id);
     }
 }
