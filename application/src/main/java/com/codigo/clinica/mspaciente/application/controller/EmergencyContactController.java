@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/emergency/contact")
 @AllArgsConstructor
 public class EmergencyContactController {
+
     private final EmergencyContactServiceIn emergencyContactServiceIn;
 
     @PostMapping
