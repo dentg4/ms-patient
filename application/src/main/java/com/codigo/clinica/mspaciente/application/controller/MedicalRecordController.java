@@ -51,11 +51,11 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "200", description = "Historia encontrada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
             @ApiResponse(responseCode = "404", description = "Historia no encontrada.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/buscarxId/{id}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<MedicalRecordDto> findById(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(medicalRecordServiceIn.findByIdIn(id).get());
+                .body(medicalRecordServiceIn.findByIdIn(id).orElseThrow(()-> new RuntimeException("Historial no no encontrado.")));
     }
 
 

@@ -51,11 +51,11 @@ public class TeatmentController {
             @ApiResponse(responseCode = "200", description = "Tratamiento encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
             @ApiResponse(responseCode = "404", description = "Tratamiento no encontradO.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/buscarxId/{id}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<TeatmentDto> findById(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(teatmentServiceIn.findByIdIn(id).get());
+                .body(teatmentServiceIn.findByIdIn(id).orElseThrow(()-> new RuntimeException("Tratamiento no no encontrado.")));
     }
 
 
