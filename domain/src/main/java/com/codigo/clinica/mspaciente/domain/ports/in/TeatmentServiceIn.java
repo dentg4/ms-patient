@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TeatmentServiceIn {
-    TeatmentDto createStoryIn(TeatmentRequest request);
+    TeatmentDto createTeatmentIn(TeatmentRequest request);
     Optional<TeatmentDto> findByIdIn(Long id);
     List<TeatmentDto> getAllIn();
     TeatmentDto updateIn(Long id, TeatmentRequest request);

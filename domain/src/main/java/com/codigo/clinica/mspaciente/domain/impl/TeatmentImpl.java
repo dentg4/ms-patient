@@ -17,7 +17,7 @@ public class TeatmentImpl implements TeatmentServiceIn {
     private final TeatmentServiceOut teatmentServiceOut;
 
     @Override
-    public TeatmentDto createStoryIn(TeatmentRequest request) {
+    public TeatmentDto createTeatmentIn(TeatmentRequest request) {
         return teatmentServiceOut.createTeatment(request);
     }
 
