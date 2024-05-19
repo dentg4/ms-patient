@@ -2,8 +2,10 @@ package com.codigo.clinica.mspaciente.infraestructure.adapters;
 
 import com.codigo.clinica.mspaciente.domain.aggregates.constants.Constants;
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDto;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.ReniecDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.PatientRequest;
 import com.codigo.clinica.mspaciente.domain.ports.out.PatientServiceOut;
+import com.codigo.clinica.mspaciente.infraestructure.client.ClientReniec;
 import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infraestructure.entity.Patient;
@@ -12,6 +14,7 @@ import com.codigo.clinica.mspaciente.infraestructure.mapper.PatientMapper;
 import com.codigo.clinica.mspaciente.infraestructure.redis.RedisService;
 import com.codigo.clinica.mspaciente.infraestructure.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -24,6 +27,13 @@ public class PatientAdapter implements PatientServiceOut {
 
     private final PatientRepository patientRepository;
     private final RedisService redisService;
+    private final ClientReniec clientReniec;
+
+    @Value("${ms.redis.expiration_time}")
+    private int redisExpirationTime;
+
+    @Value("${token.api_peru}")
+    private String tokenReniec;
 
     @Override
     public PatientDto createPatientOut(PatientRequest request) {
@@ -34,7 +44,7 @@ public class PatientAdapter implements PatientServiceOut {
 
     @Override
     public Optional<PatientDto> findByIdOut(Long id) {
-        String redisInfo =  redisService.getFromRedis(Constants.REDIS_GET_EMERG_CONTACT+id);
+        String redisInfo =  redisService.getFromRedis(Constants.REDIS_GET_PATIENT+id);
         PatientDto dto;
         if(redisInfo != null){
             dto = Util.convertFromString(redisInfo, PatientDto.class);
@@ -42,7 +52,7 @@ public class PatientAdapter implements PatientServiceOut {
             dto = PatientMapper.fromEntity(findByIdPatient(id));
 
             String dataFromRedis = Util.convertToString(dto);
-            redisService.saveInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataFromRedis,10);
+            redisService.saveInRedis(Constants.REDIS_GET_PATIENT+id,dataFromRedis,redisExpirationTime);
         }
         return Optional.of(dto);
     }
@@ -71,7 +81,7 @@ public class PatientAdapter implements PatientServiceOut {
     private PatientDto updateRedis(Long id,Patient entity){
         PatientDto patientDto= PatientMapper.fromEntity(entity);
         String dataRedis=Util.convertToString(patientDto);
-        redisService.updateInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataRedis,10);
+        redisService.updateInRedis(Constants.REDIS_GET_PATIENT+id,dataRedis,redisExpirationTime);
         return patientDto;
     }
 
@@ -96,24 +106,31 @@ public class PatientAdapter implements PatientServiceOut {
         return entity;
     }
     private void getEntity(Patient entity,PatientRequest request) {
-//        realizar llamada api-reniec
-//        entity.setName(request.get());
-//        entity.setSurname();
-//        entity.setAddress();
+        ReniecDto reniecDto =  getExecutionReniec(request.getIdentificationNumber());
+        entity.setName(reniecDto.getNombres());
+        entity.setSurname(reniecDto.getApellidoPaterno()+" "+reniecDto.getApellidoMaterno());
+
+        entity.setIdentificationType(request.getIdentificationType());
         entity.setIdentificationType(request.getIdentificationType());
         entity.setIdentificationNumber(request.getIdentificationNumber());
         entity.setBirthDate(request.getBirthDate());
         entity.setGender(request.getGender());
         entity.setPhone(request.getPhone());
+        entity.setAddress(request.getAddress());
         entity.setEmail(request.getEmail());
+        entity.setAllergies(request.getAllergies());
 
     }
     private Timestamp getTimestamp(){
         long currenTIme = System.currentTimeMillis();
         return new Timestamp(currenTIme);
     }
+    private ReniecDto getExecutionReniec(String numero){
+        String authorization = "Bearer "+tokenReniec;
+        return clientReniec.getInfoReniec(numero,authorization);
+    }
     private Patient findByIdPatient(Long id){
         return patientRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Contacto de emergencia no encontrado."));
+                .orElseThrow(()-> new RuntimeException("Paciente no encontrado."));
     }
 }

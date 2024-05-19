@@ -2,7 +2,6 @@ package com.codigo.clinica.mspaciente.infraestructure.adapters;
 
 import com.codigo.clinica.mspaciente.domain.aggregates.constants.Constants;
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.out.EmergencyContactServiceOut;
 import com.codigo.clinica.mspaciente.infraestructure.dao.EmergencyContactRepository;
@@ -10,10 +9,10 @@ import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infraestructure.entity.EmergencyContact;
 import com.codigo.clinica.mspaciente.infraestructure.entity.Patient;
 import com.codigo.clinica.mspaciente.infraestructure.mapper.EmergencyContactMapper;
-import com.codigo.clinica.mspaciente.infraestructure.mapper.PatientMapper;
 import com.codigo.clinica.mspaciente.infraestructure.redis.RedisService;
 import com.codigo.clinica.mspaciente.infraestructure.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -27,6 +26,9 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     private final EmergencyContactRepository emergencyContactRepository;
     private final PatientRepository patientRepository;
     private final RedisService redisService;
+
+    @Value("${ms.redis.expiration_time}")
+    private int redisExpirationTime;
 
     @Override
     public EmergencyContactDto createEmergencyContactOut(EmergencyContactRequest request) {
@@ -45,7 +47,7 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
             dto = EmergencyContactMapper.fromEntity(findByIdEmergencyContact(id));
 
             String dataFromRedis = Util.convertToString(dto);
-            redisService.saveInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataFromRedis,10);
+            redisService.saveInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataFromRedis,redisExpirationTime);
         }
         return Optional.of(dto);
     }
@@ -74,7 +76,7 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     private EmergencyContactDto updateRedis(Long id,EmergencyContact entity){
         EmergencyContactDto emergencyContactDto= EmergencyContactMapper.fromEntity(entity);
         String dataRedis=Util.convertToString(emergencyContactDto);
-        redisService.updateInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataRedis,10);
+        redisService.updateInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataRedis,redisExpirationTime);
         return emergencyContactDto;
     }
 

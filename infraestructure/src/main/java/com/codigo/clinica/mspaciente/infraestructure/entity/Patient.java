@@ -1,5 +1,7 @@
 package com.codigo.clinica.mspaciente.infraestructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -9,12 +11,14 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "patients")
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +37,8 @@ public class Patient {
     private String identificationNumber;
 
     @Column(name = "birth_date", nullable = false)
-    private LocalDate birthDate;
+    @Temporal(TemporalType.DATE)
+    private Date birthDate;
 
     @Column(name = "gender", nullable = false, length = 15)
     private String gender;
@@ -78,4 +83,7 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<MedicalRecord> stories;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Teatment> teatments;
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "teatments")
@@ -26,10 +26,10 @@ public class Teatment {
     private double cost;
 
     @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
+    private Date startDate;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
+    private Date endDate;
 
     @Min(0) @Max(1)
     @Column(name = "status", nullable = false)

@@ -1,14 +1,14 @@
 package com.codigo.clinica.mspaciente.domain.aggregates.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmergencyContactDto {
     private Long id;
     private String name;
@@ -23,3 +23,4 @@ public class EmergencyContactDto {
     private String deletedBy;
     private Timestamp deletedOn;
 }
+
