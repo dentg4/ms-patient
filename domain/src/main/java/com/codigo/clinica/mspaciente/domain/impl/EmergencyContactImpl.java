@@ -1,6 +1,6 @@
 package com.codigo.clinica.mspaciente.domain.impl;
 
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.EmergencyContactServiceIn;
 import com.codigo.clinica.mspaciente.domain.ports.out.EmergencyContactServiceOut;
@@ -15,28 +15,29 @@ import java.util.Optional;
 public class EmergencyContactImpl implements EmergencyContactServiceIn {
 
     private final EmergencyContactServiceOut emergencyContactServiceOut;
+
     @Override
-    public EmergencyContactDTO crearEmergencyContactIn(EmergencyContactRequest request) {
-        return emergencyContactServiceOut.crearEmergencyContactOut(request);
+    public EmergencyContactDto createEmergencyContactIn(EmergencyContactRequest request) {
+        return emergencyContactServiceOut.createEmergencyContactOut(request);
     }
 
     @Override
-    public Optional<EmergencyContactDTO> buscarPorIdIn(Long id) {
-        return emergencyContactServiceOut.buscarPorIdOut(id);
+    public Optional<EmergencyContactDto> findByIdIn(Long id) {
+        return emergencyContactServiceOut.findByIdOut(id);
     }
 
     @Override
-    public List<EmergencyContactDTO> obtenerTodosIn() {
-        return emergencyContactServiceOut.obtenerTodosOut();
+    public List<EmergencyContactDto> getAllIn() {
+        return emergencyContactServiceOut.getAllOut();
     }
 
     @Override
-    public EmergencyContactDTO actualizarIn(Long id, EmergencyContactRequest request) {
-        return emergencyContactServiceOut.actualizarOut(id, request);
+    public EmergencyContactDto updateIn(Long id, EmergencyContactRequest request) {
+        return emergencyContactServiceOut.updateOut(id, request);
     }
 
     @Override
-    public EmergencyContactDTO deleteIn(Long id) {
+    public EmergencyContactDto deleteIn(Long id) {
         return emergencyContactServiceOut.deleteOut(id);
     }
 }

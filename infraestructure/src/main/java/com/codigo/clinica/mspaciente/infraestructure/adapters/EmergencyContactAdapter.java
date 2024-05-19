@@ -1,7 +1,8 @@
 package com.codigo.clinica.mspaciente.infraestructure.adapters;
 
 import com.codigo.clinica.mspaciente.domain.aggregates.constants.Constants;
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.out.EmergencyContactServiceOut;
 import com.codigo.clinica.mspaciente.infraestructure.dao.EmergencyContactRepository;
@@ -9,6 +10,9 @@ import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infraestructure.entity.EmergencyContact;
 import com.codigo.clinica.mspaciente.infraestructure.entity.Patient;
 import com.codigo.clinica.mspaciente.infraestructure.mapper.EmergencyContactMapper;
+import com.codigo.clinica.mspaciente.infraestructure.mapper.PatientMapper;
+import com.codigo.clinica.mspaciente.infraestructure.redis.RedisService;
+import com.codigo.clinica.mspaciente.infraestructure.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,38 +26,56 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
 
     private final EmergencyContactRepository emergencyContactRepository;
     private final PatientRepository patientRepository;
+    private final RedisService redisService;
+
     @Override
-    public EmergencyContactDTO crearEmergencyContactOut(EmergencyContactRequest request) {
+    public EmergencyContactDto createEmergencyContactOut(EmergencyContactRequest request) {
         EmergencyContact emergencyContacts = propertyCreate(request);
 
         return EmergencyContactMapper.fromEntity(emergencyContactRepository.save(emergencyContacts));
     }
 
     @Override
-    public Optional<EmergencyContactDTO> buscarPorIdOut(Long id) {
-        EmergencyContact emergencyContact = findByIdEmergencyContact(id);
-        return Optional.of(EmergencyContactMapper.fromEntity(emergencyContact));
+    public Optional<EmergencyContactDto> findByIdOut(Long id) {
+        String redisInfo =  redisService.getFromRedis(Constants.REDIS_GET_EMERG_CONTACT+id);
+        EmergencyContactDto dto;
+        if(redisInfo != null){
+            dto = Util.convertFromString(redisInfo, EmergencyContactDto.class);
+        }else{
+            dto = EmergencyContactMapper.fromEntity(findByIdEmergencyContact(id));
+
+            String dataFromRedis = Util.convertToString(dto);
+            redisService.saveInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataFromRedis,10);
+        }
+        return Optional.of(dto);
     }
 
     @Override
-    public List<EmergencyContactDTO> obtenerTodosOut() {
+    public List<EmergencyContactDto> getAllOut() {
         List<EmergencyContact> list = emergencyContactRepository.findAll();
         return list.stream().map(EmergencyContactMapper::fromEntity).toList();
     }
 
     @Override
-    public EmergencyContactDTO actualizarOut(Long id, EmergencyContactRequest request) {
+    public EmergencyContactDto updateOut(Long id, EmergencyContactRequest request) {
         EmergencyContact emergencyContact = findByIdEmergencyContact(id);
 
-        return EmergencyContactMapper
-                .fromEntity(emergencyContactRepository.save(propertyUpdate(emergencyContact, request)));
+        return updateRedis(id, emergencyContactRepository.save(propertyUpdate(emergencyContact, request)));
     }
 
     @Override
-    public EmergencyContactDTO deleteOut(Long id) {
+    public EmergencyContactDto deleteOut(Long id) {
         EmergencyContact emergencyContact =  findByIdEmergencyContact(id);
 
-        return EmergencyContactMapper.fromEntity(emergencyContactRepository.save(propertyDelete(emergencyContact)));
+        return updateRedis(id, emergencyContactRepository.save(propertyDelete(emergencyContact)));
+
+    }
+
+    private EmergencyContactDto updateRedis(Long id,EmergencyContact entity){
+        EmergencyContactDto emergencyContactDto= EmergencyContactMapper.fromEntity(entity);
+        String dataRedis=Util.convertToString(emergencyContactDto);
+        redisService.updateInRedis(Constants.REDIS_GET_EMERG_CONTACT+id,dataRedis,10);
+        return emergencyContactDto;
     }
 
     private EmergencyContact propertyCreate(EmergencyContactRequest request){
@@ -78,7 +100,7 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
     }
     private void getEntity(EmergencyContact entity,EmergencyContactRequest request) {
 
-        Patient patient = patientRepository.findById(request.getId_patient())
+        Patient patient = patientRepository.findById(request.getPatientId())
                 .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
         entity.setName(request.getName());

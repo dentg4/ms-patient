@@ -20,13 +20,16 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 200)
     private String name;
 
-    @Column(name = "surname", nullable = false)
+    @Column(name = "surname", nullable = false, length = 200)
     private String surname;
 
-    @Column(name = "identification_number", nullable = false)
+    @Column(name = "identification_type", nullable = false, length = 16)
+    private String identificationType;
+
+    @Column(name = "identification_number", nullable = false, length = 15)
     private String identificationNumber;
 
     @Column(name = "birth_date", nullable = false)
@@ -35,16 +38,18 @@ public class Patient {
     @Column(name = "gender", nullable = false, length = 15)
     private String gender;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = false, length = 15)
     private String phone;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "email", length = 100)
     private String email;
 
-//    @Lob
-    @Column(name = "address")
+    @Column(name = "address", length = 254)
     private String address;
+
+    @Column(name = "allergies", length = 254)
+    private String allergies;
 
     @Min(0) @Max(1)
     @Column(name = "status", nullable = false)
@@ -72,5 +77,5 @@ public class Patient {
     private List<EmergencyContact> emergencyContacts;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Story> stories;
+    private List<MedicalRecord> stories;
 }

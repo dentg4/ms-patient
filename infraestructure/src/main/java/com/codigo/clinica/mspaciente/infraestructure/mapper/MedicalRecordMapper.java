@@ -1,16 +1,17 @@
 package com.codigo.clinica.mspaciente.infraestructure.mapper;
 
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
-import com.codigo.clinica.mspaciente.infraestructure.entity.EmergencyContact;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.MedicalRecordDto;
+import com.codigo.clinica.mspaciente.infraestructure.entity.MedicalRecord;
 
-public class EmergencyContactMapper {
-    public static EmergencyContactDto fromEntity(EmergencyContact entity){
-        return EmergencyContactDto.builder()
+public class MedicalRecordMapper {
+    public static MedicalRecordDto fromEntity(MedicalRecord entity) {
+        return MedicalRecordDto.builder()
                 .id(entity.getId())
-                .phone(entity.getPhone())
-                .relation(entity.getRelation())
-                .name(entity.getName())
+                .diagnos(entity.getDiagnos())
+                .observations(entity.getObservations())
                 .patient(PatientMapper.fromEntity(entity.getPatient()))
+                .date(entity.getDate())
+                .reference(entity.getReference())
                 .status(entity.getStatus())
                 .createdBy(entity.getCreatedBy())
                 .createOn(entity.getCreatedOn())

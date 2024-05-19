@@ -1,6 +1,6 @@
 package com.codigo.clinica.mspaciente.application.controller;
 
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDTO;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.EmergencyContactServiceIn;
 import lombok.AllArgsConstructor;
@@ -14,32 +14,33 @@ import java.util.List;
 @RequestMapping("/api/v1/emergency/contact")
 @AllArgsConstructor
 public class EmergencyContactController {
+
     private final EmergencyContactServiceIn emergencyContactServiceIn;
 
     @PostMapping
-    public ResponseEntity<EmergencyContactDTO> createEmergencyContact(@RequestBody EmergencyContactRequest request){
+    public ResponseEntity<EmergencyContactDto> createEmergencyContact(@RequestBody EmergencyContactRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(emergencyContactServiceIn.crearEmergencyContactIn(request));
+                .body(emergencyContactServiceIn.createEmergencyContactIn(request));
     }
     @GetMapping
-    public ResponseEntity<List<EmergencyContactDTO>> getAll(){
-        return ResponseEntity.ok(emergencyContactServiceIn.obtenerTodosIn());
+    public ResponseEntity<List<EmergencyContactDto>> getAll(){
+        return ResponseEntity.ok(emergencyContactServiceIn.getAllIn());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmergencyContactDTO> getEmergencyContactById(@PathVariable Long id){
-        return ResponseEntity.ok(emergencyContactServiceIn.buscarPorIdIn(id).orElseThrow());
+    public ResponseEntity<EmergencyContactDto> getEmergencyContactById(@PathVariable Long id){
+        return ResponseEntity.ok(emergencyContactServiceIn.findByIdIn(id).orElseThrow());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmergencyContactDTO> updateEmergencyContact(@PathVariable Long id,
+    public ResponseEntity<EmergencyContactDto> updateEmergencyContact(@PathVariable Long id,
                                                                       @RequestBody EmergencyContactRequest request){
-        return ResponseEntity.ok(emergencyContactServiceIn.actualizarIn(id, request));
+        return ResponseEntity.ok(emergencyContactServiceIn.updateIn(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<EmergencyContactDTO> deleteEmergencyContact(@PathVariable Long id){
+    public ResponseEntity<EmergencyContactDto> deleteEmergencyContact(@PathVariable Long id){
         return ResponseEntity.ok(emergencyContactServiceIn.deleteIn(id));
     }
 

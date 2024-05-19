@@ -4,12 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
-public class EmergencyContactRequest {
-    private String name;
-    private String phone;
-    private String relation;
+public class TeatmentRequest {
+    private String description;
+    private double cost;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Long patientId;
 }

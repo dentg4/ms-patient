@@ -6,21 +6,17 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
 @Builder
-public class PatientDTO {
-    private Long idPatient;
-    private String name;
-    private String surname;
-    private String numeroDocumento;
-    private LocalDate birthDate;
-    private String gender;
-    private String phone;
-    private String email;
-    private String address;
+public class TeatmentDto {
+    private Long id;
+    private String description;
+    private double cost;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private PatientDto patient;
     private Integer status;
     private String createdBy;
     private Timestamp createOn;
@@ -28,6 +24,4 @@ public class PatientDTO {
     private Timestamp updatedOn;
     private String deletedBy;
     private Timestamp deletedOn;
-    private List<EmergencyContactDTO> emergencyContacts;
-    private List<StoryDTO> stories;
 }
