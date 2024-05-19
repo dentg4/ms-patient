@@ -21,4 +21,15 @@ public class RedisService {
     public void deleteKey(String key){
         stringRedisTemplate.delete(key);
     }
+    public void updateInRedis(String key, String newValue, int exp){
+        Long expiration = stringRedisTemplate.getExpire(key, TimeUnit.MINUTES);
+
+        stringRedisTemplate.opsForValue().set(key, newValue);
+
+        if(expiration !=null && expiration>0){
+            stringRedisTemplate.expire(key,expiration,TimeUnit.MINUTES);
+        }else{
+            stringRedisTemplate.expire(key,exp, TimeUnit.MINUTES);
+        }
+    }
 }

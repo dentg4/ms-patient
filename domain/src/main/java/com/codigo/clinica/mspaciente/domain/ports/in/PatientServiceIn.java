@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PatientServiceIn {
-    PatientDto createPatienIn(PatientRequest request);
+    PatientDto createPatientIn(PatientRequest request);
     Optional<PatientDto> findByIdIn(Long id);
     List<PatientDto> getAllIn();
     PatientDto updateIn(Long id, PatientRequest request);

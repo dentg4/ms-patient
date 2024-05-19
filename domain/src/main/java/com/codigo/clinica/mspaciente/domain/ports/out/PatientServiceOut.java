@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PatientServiceOut {
-    PatientDto createPatient(PatientRequest request);
+    PatientDto createPatientOut(PatientRequest request);
     Optional<PatientDto> findByIdOut(Long id);
     List<PatientDto> getAllOut();
     PatientDto updateOut(Long id, PatientRequest request);

@@ -14,30 +14,30 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PatientImpl implements PatientServiceIn {
 
-    //private final PatientServiceOut patientServiceOut;
+    private final PatientServiceOut patientServiceOut;
 
     @Override
-    public PatientDto createPatienIn(PatientRequest request) {
-        return null;
+    public PatientDto createPatientIn(PatientRequest request) {
+        return patientServiceOut.createPatientOut(request);
     }
 
     @Override
     public Optional<PatientDto> findByIdIn(Long id) {
-        return Optional.empty();
+        return patientServiceOut.findByIdOut(id);
     }
 
     @Override
     public List<PatientDto> getAllIn() {
-        return List.of();
+        return patientServiceOut.getAllOut();
     }
 
     @Override
     public PatientDto updateIn(Long id, PatientRequest request) {
-        return null;
+        return patientServiceOut.updateOut(id, request);
     }
 
     @Override
     public PatientDto deleteIn(Long id) {
-        return null;
+        return patientServiceOut.deleteOut(id);
     }
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -17,7 +17,7 @@ public class PatientDto {
     private String surname;
     private String identificationType;
     private String identificationNumber;
-    private LocalDate birthDate;
+    private Date birthDate;
     private String gender;
     private String phone;
     private String email;

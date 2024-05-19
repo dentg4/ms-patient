@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,8 +14,8 @@ public class TeatmentDto {
     private Long id;
     private String description;
     private double cost;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Date startDate;
+    private Date endDate;
     private PatientDto patient;
     private Integer status;
     private String createdBy;

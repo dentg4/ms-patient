@@ -10,7 +10,7 @@ public class EmergencyContactMapper {
                 .phone(entity.getPhone())
                 .relation(entity.getRelation())
                 .name(entity.getName())
-                .patient(PatientMapper.fromEntity(entity.getPatient()))
+//                .patient(PatientMapper.fromEntity(entity.getPatient())) //Problema de blucle infinito
                 .status(entity.getStatus())
                 .createdBy(entity.getCreatedBy())
                 .createOn(entity.getCreatedOn())
