@@ -22,7 +22,7 @@ import java.util.List;
         description = "Incluye EndPoints para realizar el mantenimiento de un tratamiento."
 )
 @RestController
-@RequestMapping("/api/v1/ms-paciente/tratamiento")
+@RequestMapping("/api/v1/ms-patient/teatment")
 @AllArgsConstructor
 public class TeatmentController {
 
@@ -34,7 +34,7 @@ public class TeatmentController {
             @ApiResponse(responseCode = "200", description = "Tratamiento creada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PostMapping("/crear")
+    @PostMapping("/create")
     public ResponseEntity<TeatmentDto> create(@RequestBody TeatmentRequest teatmentRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -51,7 +51,7 @@ public class TeatmentController {
             @ApiResponse(responseCode = "200", description = "Tratamiento encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
             @ApiResponse(responseCode = "404", description = "Tratamiento no encontradO.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<TeatmentDto> findById(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -65,7 +65,7 @@ public class TeatmentController {
             @ApiResponse(responseCode = "200", description = "Tratamientos encontrados con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
             @ApiResponse(responseCode = "404", description = "TratamientoS no encontrados.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/buscartodos")
+    @GetMapping("/all")
     public ResponseEntity<List<TeatmentDto>> findAll(){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -82,7 +82,7 @@ public class TeatmentController {
             @ApiResponse(responseCode = "200", description = "Tratamiento actualizado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<TeatmentDto> update(@PathVariable Long id, @RequestBody TeatmentRequest teatmentRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -99,7 +99,7 @@ public class TeatmentController {
             @ApiResponse(responseCode = "200", description = "Tratamiento eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<TeatmentDto> delete(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)

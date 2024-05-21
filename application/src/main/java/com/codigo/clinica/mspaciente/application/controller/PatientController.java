@@ -2,7 +2,6 @@ package com.codigo.clinica.mspaciente.application.controller;
 
 
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDto;
-import com.codigo.clinica.mspaciente.domain.aggregates.dto.PatientDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.PatientRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.PatientServiceIn;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +23,7 @@ import java.util.List;
         description = "Incluye EndPoints para realizar el mantenimiento de un Paciente."
 )
 @RestController
-@RequestMapping("/api/v1/patient")
+@RequestMapping("/api/v1/ms-patient/patient")
 @AllArgsConstructor
 public class PatientController {
 
@@ -36,8 +35,8 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Paciente creado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PostMapping
-    public ResponseEntity<PatientDto> createPatient(@RequestBody PatientRequest request){
+    @PostMapping("crete")
+    public ResponseEntity<PatientDto> create(@RequestBody PatientRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(patientServiceIn.createPatientIn(request));
@@ -49,7 +48,7 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Pacientes encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
             @ApiResponse(responseCode = "404", description = "Pacientes no encontradas.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<PatientDto>> getAll(){
         return ResponseEntity.ok(patientServiceIn.getAllIn());
     }
@@ -63,7 +62,7 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Paciente encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
             @ApiResponse(responseCode = "404", description = "Paciente no encontrado.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<PatientDto> getPatientById(@PathVariable Long id){
         return ResponseEntity.ok(patientServiceIn.findByIdIn(id).orElseThrow());
     }
@@ -77,7 +76,7 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Paciente actualizado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<PatientDto> updatePatient(@PathVariable Long id,
                                                                       @RequestBody PatientRequest request){
         return ResponseEntity.ok(patientServiceIn.updateIn(id, request));
@@ -92,7 +91,7 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Paciente eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<PatientDto> deletePatient(@PathVariable Long id){
         return ResponseEntity.ok(patientServiceIn.deleteIn(id));
     }
