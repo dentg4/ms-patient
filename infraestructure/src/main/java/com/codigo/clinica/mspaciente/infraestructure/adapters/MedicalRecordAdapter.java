@@ -1,9 +1,11 @@
 package com.codigo.clinica.mspaciente.infraestructure.adapters;
 
 import com.codigo.clinica.mspaciente.domain.aggregates.constants.Constants;
+import com.codigo.clinica.mspaciente.domain.aggregates.dto.DoctorDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.MedicalRecordDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.MedicalRecordRequest;
 import com.codigo.clinica.mspaciente.domain.ports.out.MedicalRecordServiceOut;
+import com.codigo.clinica.mspaciente.infraestructure.client.ClientMsStaff;
 import com.codigo.clinica.mspaciente.infraestructure.dao.MedicalRecordRepository;
 import com.codigo.clinica.mspaciente.infraestructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infraestructure.entity.MedicalRecord;
@@ -26,7 +28,7 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
 
     private final MedicalRecordRepository medicalRecordRepository;
     private final PatientRepository patientRepository;
-    //private final DoctorRepository doctorRepository;
+    private final ClientMsStaff clientMsStaff;
     private final RedisService redisService;
 
     @Value("${ms.redis.expiration_time}")
@@ -45,7 +47,10 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
         if(redisInfo != null){
             medicalRecordDto = Util.convertFromString(redisInfo, MedicalRecordDto.class);
         }else{
-            medicalRecordDto = MedicalRecordMapper.fromEntity(medicalRecordRepository.findById(id).orElseThrow(()-> new RuntimeException("Historial no no encontrado.")));
+            MedicalRecord medicalRecord = medicalRecordRepository.findById(id).orElseThrow(()-> new RuntimeException("Historial no no encontrado."));
+            medicalRecordDto = MedicalRecordMapper.fromEntity(medicalRecord);
+            DoctorDto doctorDto = clientMsStaff.getDoctorById(medicalRecord.getDoctorId());
+            medicalRecordDto.setDoctor(doctorDto);
             String dataForRedis = Util.convertToString(medicalRecordDto);
             redisService.saveInRedis(Constants.REDIS_GET_MEDICAL_REC + id, dataForRedis, redisExpirationTime);
         }

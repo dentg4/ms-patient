@@ -1,8 +1,7 @@
 package com.codigo.clinica.mspaciente.domain.aggregates.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -11,6 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientDto {
     private Long idPatient;
     private String name;
@@ -31,6 +33,6 @@ public class PatientDto {
     private String deletedBy;
     private Timestamp deletedOn;
     private List<EmergencyContactDto> emergencyContacts;
-    private List<MedicalRecordDto> stories;
+    private List<MedicalRecordDto> medicalRecords;
     private List<TeatmentDto> teatments;
 }

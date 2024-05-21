@@ -9,7 +9,7 @@ public class MedicalRecordMapper {
                 .id(entity.getId())
                 .diagnos(entity.getDiagnos())
                 .observations(entity.getObservations())
-                //.patient(PatientMapper.fromEntity(entity.getPatient())) //problema de bucle infinito
+                .patientId(entity.getPatient().getId())
                 .date(entity.getDate())
                 .reference(entity.getReference())
                 .status(entity.getStatus())
