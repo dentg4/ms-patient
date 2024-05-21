@@ -1,7 +1,5 @@
 package com.codigo.clinica.mspaciente.infraestructure.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -14,7 +12,6 @@ import java.sql.Timestamp;
 @Table(name = "emergency_contacts")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class EmergencyContact {
 
     @Id

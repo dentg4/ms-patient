@@ -1,7 +1,5 @@
 package com.codigo.clinica.mspaciente.infraestructure.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -10,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +15,6 @@ import java.util.List;
 @Table(name = "patients")
 @Getter
 @Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,8 +78,9 @@ public class Patient {
     private List<EmergencyContact> emergencyContacts;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<MedicalRecord> stories;
+    private List<MedicalRecord> medicalRecords;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Teatment> teatments;
+
 }

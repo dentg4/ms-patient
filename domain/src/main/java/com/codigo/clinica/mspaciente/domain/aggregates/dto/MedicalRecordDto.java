@@ -1,22 +1,24 @@
 package com.codigo.clinica.mspaciente.domain.aggregates.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MedicalRecordDto {
     private Long id;
     private String diagnos;
     private String observations;
-    //private DoctrorDto doctor;
+    private DoctorDto doctor;
     private String reference;
     private Timestamp date;
-    private PatientDto patient;
+    private Long patientId;
     private Integer status;
     private String createdBy;
     private Timestamp createOn;

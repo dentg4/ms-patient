@@ -23,7 +23,7 @@ public class PatientMapper {
                 .address(entity.getAddress())
                 .allergies(entity.getAllergies())
                 .emergencyContacts(mapList(entity.getEmergencyContacts(),EmergencyContactMapper::fromEntity))
-                .stories(mapList(entity.getStories(), MedicalRecordMapper::fromEntity))
+                .medicalRecords(mapList(entity.getMedicalRecords(),MedicalRecordMapper::fromEntity))
                 .teatments(mapList(entity.getTeatments(),TeatmentMapper::fromEntity))
                 .status(entity.getStatus())
                 .createdBy(entity.getCreatedBy())
@@ -35,9 +35,12 @@ public class PatientMapper {
                 .build();
     }
 
+
     public static  <T, R> List<R> mapList(List<T> list, Function<T, R> mapper) {
+
         return list != null
                 ? list.stream().map(mapper).collect(Collectors.toList())
                 : Collections.emptyList();
     }
+
 }

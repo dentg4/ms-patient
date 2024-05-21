@@ -11,7 +11,7 @@ public class TeatmentMapper {
                 .cost(entity.getCost())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
-                //.patient(PatientMapper.fromEntity(entity.getPatient()))
+                .patientId(entity.getPatient().getId())
                 .status(entity.getStatus())
                 .createdBy(entity.getCreatedBy())
                 .createOn(entity.getCreatedOn())
