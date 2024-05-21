@@ -22,7 +22,7 @@ import java.util.List;
         description = "Incluye EndPoints para realizar el mantenimiento de una historias."
 )
 @RestController
-@RequestMapping("/api/v1/ms-paciente/historias")
+@RequestMapping("/api/v1/ms-patient/historias")
 @AllArgsConstructor
 public class MedicalRecordController {
 
@@ -34,7 +34,7 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "200", description = "Historia creada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PostMapping("/crear")
+    @PostMapping("/create")
     public ResponseEntity<MedicalRecordDto> create(@RequestBody MedicalRecordRequest medicalRecordRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -51,7 +51,7 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "200", description = "Historia encontrada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
             @ApiResponse(responseCode = "404", description = "Historia no encontrada.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<MedicalRecordDto> findById(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -65,7 +65,7 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "200", description = "Historias encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
             @ApiResponse(responseCode = "404", description = "Historias no encontradas.", content = { @Content(schema = @Schema()) })
     })
-    @GetMapping("/buscartodos")
+    @GetMapping("/all")
     public ResponseEntity<List<MedicalRecordDto>> findAll(){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -82,7 +82,7 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "200", description = "Historia actualizada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<MedicalRecordDto> update(@PathVariable Long id, @RequestBody MedicalRecordRequest medicalRecordRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -99,7 +99,7 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "200", description = "Historia eliminada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<MedicalRecordDto> delete(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
