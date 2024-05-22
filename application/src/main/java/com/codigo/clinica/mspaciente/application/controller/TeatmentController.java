@@ -55,7 +55,7 @@ public class TeatmentController {
     public ResponseEntity<TeatmentDto> findById(@PathVariable Long id){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(teatmentServiceIn.findByIdIn(id).orElseThrow(()-> new RuntimeException("Tratamiento no no encontrado.")));
+                .body(teatmentServiceIn.findByIdIn(id).orElseThrow(()-> new RuntimeException("Tratamiento no encontrado.")));
     }
 
 
