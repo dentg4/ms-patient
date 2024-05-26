@@ -9,19 +9,25 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "stories")
+@Table(name = "medical_records")
 @Getter
 @Setter
-public class Stories {
+public class MedicalRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "condition", nullable = false)
-    private String condition;
+    @Column(name = "diagnos", nullable = false)
+    private String diagnos;
 
     @Column(name = "observations")
     private String observations;
+
+    @Column(name = "reference")
+    private String reference;
+
+    @Column(name = "date", nullable = false)
+    private Timestamp date;
 
     @Min(0) @Max(1)
     @Column(name = "status", nullable = false)
@@ -48,5 +54,13 @@ public class Stories {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
-}
 
+    @Column(name = "doctor_id")
+    private Long doctorId;
+
+    /*
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+    */
+}

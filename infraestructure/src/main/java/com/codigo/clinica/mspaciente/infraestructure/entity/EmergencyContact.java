@@ -1,37 +1,31 @@
 package com.codigo.clinica.mspaciente.infraestructure.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
-@Table(name = "teatments")
+@Table(name = "emergency_contacts")
 @Getter
 @Setter
-public class Teatments {
+public class EmergencyContact {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Min(0)
-    @Column(name = "cost", nullable = false)
-    private double cost;
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
-    @Column(name = "start_date", nullable = false)
-    private LocalDate start_date;
-
-    @Column(name = "end_date", nullable = false)
-    private LocalDate end_date;
+    @Column(name = "relation", nullable = false)
+    private String relation;
 
     @Min(0) @Max(1)
     @Column(name = "status", nullable = false)
