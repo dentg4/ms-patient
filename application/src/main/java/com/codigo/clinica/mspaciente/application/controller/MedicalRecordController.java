@@ -22,7 +22,7 @@ import java.util.List;
         description = "Incluye EndPoints para realizar el mantenimiento de una historias."
 )
 @RestController
-@RequestMapping("/api/v1/ms-patient/historias")
+@RequestMapping("/api/v1/ms-patient/record")
 @AllArgsConstructor
 public class MedicalRecordController {
 
