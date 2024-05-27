@@ -53,9 +53,8 @@ public class TeatmentController {
     })
     @GetMapping("/find/{id}")
     public ResponseEntity<TeatmentDto> findById(@PathVariable Long id){
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(teatmentServiceIn.findByIdIn(id).orElseThrow(()-> new RuntimeException("Tratamiento no encontrado.")));
+        return teatmentServiceIn.findByIdIn(id).map(ResponseEntity::ok)
+                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
 

@@ -63,7 +63,8 @@ public class EmergencyContactController {
     })
     @GetMapping("/find/{id}")
     public ResponseEntity<EmergencyContactDto> getEmergencyContactById(@PathVariable Long id){
-        return ResponseEntity.ok(emergencyContactServiceIn.findByIdIn(id).orElseThrow());
+        return emergencyContactServiceIn.findByIdIn(id).map(ResponseEntity::ok)
+                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @Operation(summary = "Actualizar un Contacto de Emergencia.",

@@ -53,9 +53,8 @@ public class MedicalRecordController {
     })
     @GetMapping("/find/{id}")
     public ResponseEntity<MedicalRecordDto> findById(@PathVariable Long id){
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(medicalRecordServiceIn.findByIdIn(id).orElseThrow(()-> new RuntimeException("Historial no no encontrado.")));
+        return medicalRecordServiceIn.findByIdIn(id).map(ResponseEntity::ok)
+                .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
 
