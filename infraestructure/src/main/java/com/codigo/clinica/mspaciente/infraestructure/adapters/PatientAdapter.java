@@ -85,7 +85,7 @@ public class PatientAdapter implements PatientServiceOut {
         return patientDto;
     }
 
-    private Patient propertyCreate(PatientRequest request){
+    public Patient propertyCreate(PatientRequest request){
         Patient entity= new Patient();
         getEntity(entity, request);
         entity.setStatus(Constants.STATUS_ACTIVE);
@@ -93,7 +93,7 @@ public class PatientAdapter implements PatientServiceOut {
         entity.setCreatedOn(getTimestamp());
         return entity;
     }
-    private Patient propertyUpdate(Patient entity, PatientRequest request){
+    public Patient propertyUpdate(Patient entity, PatientRequest request){
         getEntity(entity,request);
         entity.setUpdatedBy(Constants.USU_ADMIN);
         entity.setUpdatedOn(getTimestamp());

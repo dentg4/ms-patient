@@ -10,7 +10,7 @@ public class EmergencyContactMapper {
                 .phone(entity.getPhone())
                 .relation(entity.getRelation())
                 .name(entity.getName())
-                .patientId(entity.getPatient().getId())
+                .patientId(entity.getPatient()==null?null:entity.getPatient().getId())
                 .status(entity.getStatus())
                 .createdBy(entity.getCreatedBy())
                 .createOn(entity.getCreatedOn())

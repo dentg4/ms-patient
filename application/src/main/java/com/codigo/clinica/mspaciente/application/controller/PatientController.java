@@ -35,7 +35,7 @@ public class PatientController {
             @ApiResponse(responseCode = "200", description = "Paciente creado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
-    @PostMapping("crete")
+    @PostMapping("create")
     public ResponseEntity<PatientDto> create(@RequestBody PatientRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)

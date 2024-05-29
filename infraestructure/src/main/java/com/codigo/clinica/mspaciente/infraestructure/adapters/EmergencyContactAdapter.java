@@ -80,7 +80,7 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
         return emergencyContactDto;
     }
 
-    private EmergencyContact propertyCreate(EmergencyContactRequest request){
+    public EmergencyContact propertyCreate(EmergencyContactRequest request){
         EmergencyContact entity= new EmergencyContact();
         getEntity(entity, request);
         entity.setStatus(Constants.STATUS_ACTIVE);
@@ -88,13 +88,13 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
         entity.setCreatedOn(getTimestamp());
         return entity;
     }
-    private EmergencyContact propertyUpdate(EmergencyContact entity, EmergencyContactRequest request){
+    public EmergencyContact propertyUpdate(EmergencyContact entity, EmergencyContactRequest request){
         getEntity(entity,request);
         entity.setUpdatedBy(Constants.USU_ADMIN);
         entity.setUpdatedOn(getTimestamp());
         return entity;
     }
-    private EmergencyContact propertyDelete(EmergencyContact entity){
+    public EmergencyContact propertyDelete(EmergencyContact entity){
         entity.setStatus(Constants.STATUS_INACTIVE);
         entity.setDeletedBy(Constants.USU_ADMIN);
         entity.setDeletedOn(getTimestamp());
