@@ -119,4 +119,5 @@ public class EmergencyContactAdapter implements EmergencyContactServiceOut {
         return emergencyContactRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Emergency not found"));
     }
+
 }

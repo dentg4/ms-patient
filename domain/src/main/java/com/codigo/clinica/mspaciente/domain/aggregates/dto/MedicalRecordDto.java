@@ -15,6 +15,7 @@ public class MedicalRecordDto {
     private Long id;
     private String diagnos;
     private String observations;
+    private Long doctorId;
     private DoctorDto doctor;
     private String reference;
     private Timestamp date;

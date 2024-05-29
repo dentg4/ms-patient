@@ -29,7 +29,7 @@ public class Patient {
     @Column(name = "identification_type", nullable = false, length = 16)
     private String identificationType;
 
-    @Column(name = "identification_number", nullable = false, length = 15)
+    @Column(name = "identification_number", nullable = false, length = 15, unique = true)
     private String identificationNumber;
 
     @Column(name = "birth_date", nullable = false)

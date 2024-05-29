@@ -15,6 +15,8 @@ import com.codigo.clinica.mspaciente.infrastructure.redis.RedisService;
 import com.codigo.clinica.mspaciente.infrastructure.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -49,7 +51,7 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
         }else{
             MedicalRecord medicalRecord = medicalRecordRepository.findById(id).orElseThrow(()-> new RuntimeException("Medical record not found"));
             medicalRecordDto = MedicalRecordMapper.fromEntity(medicalRecord);
-            DoctorDto doctorDto = clientMsStaff.getDoctorById(medicalRecord.getDoctorId());
+            DoctorDto doctorDto = Util.validateResponse(clientMsStaff.getDoctorById(medicalRecord.getDoctorId()));
             medicalRecordDto.setDoctor(doctorDto);
             String dataForRedis = Util.convertToString(medicalRecordDto);
             redisService.saveInRedis(Constants.REDIS_GET_MEDICAL_REC + id, dataForRedis, redisExpirationTime);
@@ -102,10 +104,10 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
         Patient patient = patientRepository.findById(medicalRecordRequest.getPatientId()).orElseThrow(()-> new RuntimeException("Patient not found"));
         entity.setPatient(patient);
 
-        /*
-        Doctor doctor = doctorRepository.findById(medicalRecordRequest.getDoctorId()).orElseThrow(()-> new RuntimeException("Doctor not found"));
-        entity.setDoctor(doctor);
-        */
+
+        DoctorDto doctor = Util.validateResponse(clientMsStaff.getDoctorById(medicalRecordRequest.getDoctorId()));
+        entity.setDoctorId(doctor.getId());
+
 
         if (updateIf) {
             entity.setId(id);
@@ -122,4 +124,5 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
         long currenTime = System.currentTimeMillis();
         return new Timestamp(currenTime);
     }
+
 }
