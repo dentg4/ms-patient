@@ -107,9 +107,8 @@ public class PatientAdapter implements PatientServiceOut {
         ReniecDto reniecDto =  getExecutionReniec(request.getIdentificationNumber());
         entity.setName(reniecDto.getNombres());
         entity.setSurname(reniecDto.getApellidoPaterno()+" "+reniecDto.getApellidoMaterno());
+        entity.setIdentificationType(reniecDto.getTipoDocumento());
 
-        entity.setIdentificationType(request.getIdentificationType());
-        entity.setIdentificationType(request.getIdentificationType());
         entity.setIdentificationNumber(request.getIdentificationNumber());
         entity.setBirthDate(request.getBirthDate());
         entity.setGender(request.getGender());

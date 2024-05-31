@@ -32,7 +32,7 @@ public class PatientDto {
     private Timestamp updatedOn;
     private String deletedBy;
     private Timestamp deletedOn;
-    private List<EmergencyContactDto> emergencyContacts;
-    private List<MedicalRecordDto> medicalRecords;
-    private List<TeatmentDto> teatments;
+    private List<Long> emergencyContacts;
+    private List<Long> medicalRecords;
+    private List<Long> teatments;
 }
