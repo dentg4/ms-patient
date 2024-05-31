@@ -1,17 +1,20 @@
 package com.codigo.clinica.mspaciente.infrastructure.util;
 
+import com.codigo.clinica.mspaciente.infrastructure.exceptions.JsonConversionException;
+import com.codigo.clinica.mspaciente.infrastructure.exceptions.ResponseValidationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class Util {
+
     public static <T> String convertToString(T objectTo){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(objectTo);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new JsonConversionException("Fail convert object to Json string.",e);
         }
     }
 
@@ -20,7 +23,7 @@ public class Util {
             ObjectMapper objectMapper= new ObjectMapper();
             return objectMapper.readValue(json, classType);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new JsonConversionException("Fail to convert Json string to object.",e);
         }
     }
 
@@ -28,9 +31,9 @@ public class Util {
         if(reponse.getStatusCode() == HttpStatus.OK){
             return reponse.getBody();
         }else if (reponse.getStatusCode() == HttpStatus.NOT_FOUND){
-            throw new RuntimeException("Registro no encontrado.");
+            throw new ResponseValidationException("Registro no encontrado.");
         }else{
-            throw new RuntimeException("Un error desconocido ha sucedido.");
+            throw new ResponseValidationException("Un error desconocido ha sucedido.");
         }
     }
 }

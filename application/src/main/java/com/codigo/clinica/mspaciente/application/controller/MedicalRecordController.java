@@ -3,6 +3,7 @@ package com.codigo.clinica.mspaciente.application.controller;
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.MedicalRecordDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.MedicalRecordRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.MedicalRecordServiceIn;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +36,7 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
     @PostMapping("/create")
-    public ResponseEntity<MedicalRecordDto> create(@RequestBody MedicalRecordRequest medicalRecordRequest){
+    public ResponseEntity<MedicalRecordDto> create(@Valid @RequestBody MedicalRecordRequest medicalRecordRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(medicalRecordServiceIn.createMedicalRecordIn(medicalRecordRequest));
@@ -82,7 +83,8 @@ public class MedicalRecordController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
     @PutMapping("/update/{id}")
-    public ResponseEntity<MedicalRecordDto> update(@PathVariable Long id, @RequestBody MedicalRecordRequest medicalRecordRequest){
+    public ResponseEntity<MedicalRecordDto> update(@PathVariable Long id,
+                                                   @Valid @RequestBody MedicalRecordRequest medicalRecordRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(medicalRecordServiceIn.updateIn(id, medicalRecordRequest));
