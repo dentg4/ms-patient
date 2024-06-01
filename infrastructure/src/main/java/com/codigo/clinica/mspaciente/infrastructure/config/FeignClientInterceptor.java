@@ -12,7 +12,7 @@ public class FeignClientInterceptor implements RequestInterceptor {
     @Value("${token.api_peru}")
     private String tokenReniec;
 
-    private final String AUTH_HEADER="Authorization";
+    private static final String AUTH_HEADER="Authorization";
 
     @Override
     public void apply(RequestTemplate requestTemplate) {

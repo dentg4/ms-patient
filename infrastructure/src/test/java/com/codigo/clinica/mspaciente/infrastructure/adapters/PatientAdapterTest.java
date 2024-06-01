@@ -61,7 +61,7 @@ class PatientAdapterTest {
         assertNotNull(response);
         assertNotNull(response.getCreateOn());
         assertNotNull(response.getCreatedBy());
-        assertEquals(response.getStatus(), Constants.STATUS_ACTIVE);
+        assertEquals(Constants.STATUS_ACTIVE, response.getStatus());
         assertEquals(patient.getIdentificationNumber(),response.getIdentificationNumber());
         assertEquals(patient.getEmail(),response.getEmail());
         assertEquals(patient.getPhone(), response.getPhone());
@@ -179,7 +179,7 @@ class PatientAdapterTest {
         assertNotNull(reponse);
         assertEquals(patient.getId(), reponse.getIdPatient());
         assertEquals(patient.getGender(), reponse.getGender());
-        assertEquals(reponse.getStatus(), Constants.STATUS_INACTIVE);
+        assertEquals(Constants.STATUS_INACTIVE, reponse.getStatus());
         assertNotNull(reponse.getDeletedBy());
         assertNotNull(reponse.getDeletedOn());
     }

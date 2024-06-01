@@ -166,7 +166,7 @@ class EmergencyContactAdapterTest {
         EmergencyContactDto response = adapter.deleteOut(id);
         assertNotNull(response);
         assertEquals(contact.getName(),response.getName());
-        assertEquals(response.getStatus(), Constants.STATUS_INACTIVE);
+        assertEquals(Constants.STATUS_INACTIVE, response.getStatus());
         assertNotNull(response.getDeletedOn());
         assertNotNull(response.getDeletedBy());
     }
