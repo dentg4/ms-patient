@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,9 +22,16 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+import static org.mockito.MockitoAnnotations.openMocks;
 
 class EmergencyContactAdapterTest {
+
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setUp() {
+        closeable = openMocks(this);
+    }
 
     @Mock
     private EmergencyContactRepository emergencyContactRepository;
@@ -38,11 +44,6 @@ class EmergencyContactAdapterTest {
 
     @InjectMocks
     private EmergencyContactAdapter adapter;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void createEmergencyContactOut() {

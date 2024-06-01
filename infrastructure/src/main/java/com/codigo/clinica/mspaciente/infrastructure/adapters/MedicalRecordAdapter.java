@@ -15,8 +15,7 @@ import com.codigo.clinica.mspaciente.infrastructure.redis.RedisService;
 import com.codigo.clinica.mspaciente.infrastructure.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -103,7 +102,6 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
 
         Patient patient = patientRepository.findById(medicalRecordRequest.getPatientId()).orElseThrow(()-> new RuntimeException("Patient not found"));
         entity.setPatient(patient);
-
 
         DoctorDto doctor = Util.validateResponse(clientMsStaff.getDoctorById(medicalRecordRequest.getDoctorId()));
         entity.setDoctorId(doctor.getId());

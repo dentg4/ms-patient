@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +21,16 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 class PatientAdapterTest {
+
+    private AutoCloseable closeable;
+
+    @BeforeEach
+    void setUp() {
+        closeable = openMocks(this);
+    }
 
     @Mock
     private PatientRepository patientRepository;
@@ -35,14 +42,8 @@ class PatientAdapterTest {
     @InjectMocks
     private PatientAdapter patientAdapter;
 
-    @BeforeEach
-    void up(){
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
     void createPatientOut() {
-
         PatientRequest request= PatientRequest.builder()
                 .identificationType("DNI").identificationNumber("73103894")
                 .gender("Masculino").phone("956940085")
@@ -64,7 +65,6 @@ class PatientAdapterTest {
         assertEquals(patient.getIdentificationNumber(),response.getIdentificationNumber());
         assertEquals(patient.getEmail(),response.getEmail());
         assertEquals(patient.getPhone(), response.getPhone());
-
     }
 
     @Test
@@ -82,8 +82,8 @@ class PatientAdapterTest {
         assertEquals(patientDto.getEmail(),reponse.getEmail());
         assertEquals(patientDto.getGender(), reponse.getGender());
         assertEquals(patientDto.getPhone(),reponse.getPhone());
-
     }
+
     @Test
     void findByIdOutForBD() {
         Long id=1l;
@@ -120,6 +120,7 @@ class PatientAdapterTest {
         assertNotNull(reponse);
         assertTrue(reponse.isEmpty());
     }
+
     @Test
     void getAllOut() {
         Patient patient = new Patient();
@@ -162,7 +163,6 @@ class PatientAdapterTest {
         assertEquals(reniecDto.getNombres(), reponse.getName());
         assertNotNull(reponse.getUpdatedBy());
         assertNotNull(reponse.getUpdatedOn());
-
     }
 
     @Test

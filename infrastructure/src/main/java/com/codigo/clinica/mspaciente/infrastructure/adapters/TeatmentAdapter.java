@@ -43,7 +43,7 @@ public class TeatmentAdapter implements TeatmentServiceOut {
         TeatmentDto teatmentDto;
         if(redisInfo != null){
             teatmentDto = Util.convertFromString(redisInfo, TeatmentDto.class);
-        }else{
+        } else {
             teatmentDto = TeatmentMapper.fromEntity(teatmentRepository.findById(id).orElseThrow(()-> new RuntimeException("Teatment not found")));
             String dataForRedis = Util.convertToString(teatmentDto);
             redisService.saveInRedis(Constants.REDIS_GET_TEATMENT + id, dataForRedis, redisExpirationTime);
@@ -67,7 +67,7 @@ public class TeatmentAdapter implements TeatmentServiceOut {
         if(extractedData.isPresent()){
             Teatment teatment = getEntity(extractedData.get(), request,true, id);
             return TeatmentMapper.fromEntity(teatmentRepository.save(teatment));
-        }else {
+        } else {
             throw new RuntimeException();
         }
     }
@@ -80,7 +80,7 @@ public class TeatmentAdapter implements TeatmentServiceOut {
             teatments.get().setDeletedBy(Constants.USU_ADMIN);
             teatments.get().setDeletedOn(getTimestamp());
             return TeatmentMapper.fromEntity(teatmentRepository.save(teatments.get()));
-        }else {
+        } else {
             throw new RuntimeException();
         }
     }
