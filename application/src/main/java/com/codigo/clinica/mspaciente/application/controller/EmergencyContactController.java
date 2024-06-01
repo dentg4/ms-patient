@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class EmergencyContactController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
     @PostMapping("/create")
-    public ResponseEntity<EmergencyContactDto> create(@RequestBody EmergencyContactRequest request){
+    public ResponseEntity<EmergencyContactDto> create(@Valid @RequestBody EmergencyContactRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(emergencyContactServiceIn.createEmergencyContactIn(request));
@@ -78,7 +79,7 @@ public class EmergencyContactController {
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<EmergencyContactDto> updateEmergencyContact(@PathVariable Long id,
-                                                                      @RequestBody EmergencyContactRequest request){
+                                                                      @Valid @RequestBody EmergencyContactRequest request){
         return ResponseEntity.ok(emergencyContactServiceIn.updateIn(id, request));
     }
 

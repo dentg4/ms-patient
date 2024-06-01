@@ -3,6 +3,7 @@ package com.codigo.clinica.mspaciente.application.controller;
 import com.codigo.clinica.mspaciente.domain.aggregates.dto.TeatmentDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.TeatmentRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.TeatmentServiceIn;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +36,7 @@ public class TeatmentController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
     @PostMapping("/create")
-    public ResponseEntity<TeatmentDto> create(@RequestBody TeatmentRequest teatmentRequest){
+    public ResponseEntity<TeatmentDto> create(@Valid @RequestBody TeatmentRequest teatmentRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(teatmentServiceIn.createTeatmentIn(teatmentRequest));
@@ -82,7 +83,8 @@ public class TeatmentController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
     @PutMapping("/update/{id}")
-    public ResponseEntity<TeatmentDto> update(@PathVariable Long id, @RequestBody TeatmentRequest teatmentRequest){
+    public ResponseEntity<TeatmentDto> update(@PathVariable Long id,
+                                              @Valid @RequestBody TeatmentRequest teatmentRequest){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(teatmentServiceIn.updateIn(id, teatmentRequest));

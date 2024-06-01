@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class PatientController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     })
     @PostMapping("/create")
-    public ResponseEntity<PatientDto> create(@RequestBody PatientRequest request){
+    public ResponseEntity<PatientDto> create(@Valid @RequestBody PatientRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(patientServiceIn.createPatientIn(request));
@@ -79,7 +80,7 @@ public class PatientController {
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<PatientDto> updatePatient(@PathVariable Long id,
-                                                                      @RequestBody PatientRequest request){
+                                                                      @Valid @RequestBody PatientRequest request){
         return ResponseEntity.ok(patientServiceIn.updateIn(id, request));
     }
 
