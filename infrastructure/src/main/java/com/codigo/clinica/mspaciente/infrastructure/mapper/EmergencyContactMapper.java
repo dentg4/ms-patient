@@ -4,6 +4,9 @@ import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.infrastructure.entity.EmergencyContact;
 
 public class EmergencyContactMapper {
+    private EmergencyContactMapper() {
+    }
+
     public static EmergencyContactDto fromEntity(EmergencyContact entity){
         return EmergencyContactDto.builder()
                 .id(entity.getId())

@@ -57,4 +57,5 @@ public class MedicalRecord {
 
     @Column(name = "doctor_id")
     private Long doctorId;
+
 }

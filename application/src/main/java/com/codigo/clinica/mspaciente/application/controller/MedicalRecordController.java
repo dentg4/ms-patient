@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +30,8 @@ public class MedicalRecordController {
 
     @Operation(summary = "Crear una historia.",
             description = "Para usar este EndPoint, debes enviar un objeto historia que será guardado en base de datos, previa validacion.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Historia creada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Historia creada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PostMapping("/create")
     public ResponseEntity<MedicalRecordDto> create(@Valid @RequestBody MedicalRecordRequest medicalRecordRequest){
         return ResponseEntity
@@ -48,10 +45,8 @@ public class MedicalRecordController {
             parameters = {
                     @Parameter(name = "id", description = "Id de búsqueda.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Historia encontrada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Historia no encontrada.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Historia encontrada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))})
+    @ApiResponse(responseCode = "404", description = "Historia no encontrada.", content = { @Content(schema = @Schema()) })
     @GetMapping("/find/{id}")
     public ResponseEntity<MedicalRecordDto> findById(@PathVariable Long id){
         return medicalRecordServiceIn.findByIdIn(id).map(ResponseEntity::ok)
@@ -61,10 +56,8 @@ public class MedicalRecordController {
 
     @Operation(summary = "Buscar todos los registros de historia.",
             description = "EndPoint que lista todos los registros historia de la base de datos.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Historias encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Historias no encontradas.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Historias encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))})
+    @ApiResponse(responseCode = "404", description = "Historias no encontradas.", content = { @Content(schema = @Schema()) })
     @GetMapping("/all")
     public ResponseEntity<List<MedicalRecordDto>> findAll(){
         return ResponseEntity
@@ -78,10 +71,8 @@ public class MedicalRecordController {
             parameters = {
                     @Parameter(name = "id", description = "Id de historia.", required = true, example = "1"),
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Historia actualizada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Historia actualizada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PutMapping("/update/{id}")
     public ResponseEntity<MedicalRecordDto> update(@PathVariable Long id,
                                                    @Valid @RequestBody MedicalRecordRequest medicalRecordRequest){
@@ -96,10 +87,8 @@ public class MedicalRecordController {
             parameters = {
                     @Parameter(name = "id", description = "Id para eliminación.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Historia eliminada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Historia eliminada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = MedicalRecordDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<MedicalRecordDto> delete(@PathVariable Long id){
         return ResponseEntity

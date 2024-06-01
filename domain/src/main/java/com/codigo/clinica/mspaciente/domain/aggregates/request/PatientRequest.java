@@ -10,7 +10,6 @@ import java.util.Date;
 @Setter
 @Builder
 public class PatientRequest {
-    private String identificationType;
     private String identificationNumber;
     private Date birthDate;
     private String gender;

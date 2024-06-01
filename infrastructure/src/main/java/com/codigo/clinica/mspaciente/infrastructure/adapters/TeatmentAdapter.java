@@ -8,6 +8,7 @@ import com.codigo.clinica.mspaciente.infrastructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infrastructure.dao.TeatmentRepository;
 import com.codigo.clinica.mspaciente.infrastructure.entity.Patient;
 import com.codigo.clinica.mspaciente.infrastructure.entity.Teatment;
+import com.codigo.clinica.mspaciente.infrastructure.exceptions.ResponseValidationException;
 import com.codigo.clinica.mspaciente.infrastructure.mapper.TeatmentMapper;
 import com.codigo.clinica.mspaciente.infrastructure.redis.RedisService;
 import com.codigo.clinica.mspaciente.infrastructure.util.Util;
@@ -43,7 +44,7 @@ public class TeatmentAdapter implements TeatmentServiceOut {
         TeatmentDto teatmentDto;
         if(redisInfo != null){
             teatmentDto = Util.convertFromString(redisInfo, TeatmentDto.class);
-        } else {
+        }else{
             teatmentDto = TeatmentMapper.fromEntity(teatmentRepository.findById(id).orElseThrow(()-> new RuntimeException("Teatment not found")));
             String dataForRedis = Util.convertToString(teatmentDto);
             redisService.saveInRedis(Constants.REDIS_GET_TEATMENT + id, dataForRedis, redisExpirationTime);
@@ -67,8 +68,8 @@ public class TeatmentAdapter implements TeatmentServiceOut {
         if(extractedData.isPresent()){
             Teatment teatment = getEntity(extractedData.get(), request,true, id);
             return TeatmentMapper.fromEntity(teatmentRepository.save(teatment));
-        } else {
-            throw new RuntimeException();
+        }else {
+            throw new ResponseValidationException("Teatment not found.");
         }
     }
 
@@ -80,8 +81,8 @@ public class TeatmentAdapter implements TeatmentServiceOut {
             teatments.get().setDeletedBy(Constants.USU_ADMIN);
             teatments.get().setDeletedOn(getTimestamp());
             return TeatmentMapper.fromEntity(teatmentRepository.save(teatments.get()));
-        } else {
-            throw new RuntimeException();
+        }else {
+            throw new ResponseValidationException("Teatment not found.");
         }
     }
 
@@ -93,7 +94,7 @@ public class TeatmentAdapter implements TeatmentServiceOut {
         entity.setEndDate(teatmentRequest.getEndDate());
         entity.setStatus(Constants.STATUS_ACTIVE);
 
-        Patient patient = patientRepository.findById(teatmentRequest.getPatientId()).orElseThrow(()-> new RuntimeException("Patient not found"));
+        Patient patient = patientRepository.findById(teatmentRequest.getPatientId()).orElseThrow(()-> new ResponseValidationException("Patient not found"));
         entity.setPatient(patient);
 
         if (updateIf) {

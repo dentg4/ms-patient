@@ -4,6 +4,9 @@ import com.codigo.clinica.mspaciente.domain.aggregates.dto.TeatmentDto;
 import com.codigo.clinica.mspaciente.infrastructure.entity.Teatment;
 
 public class TeatmentMapper {
+    private TeatmentMapper() {
+    }
+
     public static TeatmentDto fromEntity(Teatment entity) {
         return TeatmentDto.builder()
                 .id(entity.getId())

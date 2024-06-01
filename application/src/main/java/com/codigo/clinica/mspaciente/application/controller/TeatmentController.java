@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +30,8 @@ public class TeatmentController {
 
     @Operation(summary = "Crear un tratamiento.",
             description = "Para usar este EndPoint, debes enviar un objeto tratamiento que será guardado en base de datos, previa validacion.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tratamiento creada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Tratamiento creada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PostMapping("/create")
     public ResponseEntity<TeatmentDto> create(@Valid @RequestBody TeatmentRequest teatmentRequest){
         return ResponseEntity
@@ -48,10 +45,8 @@ public class TeatmentController {
             parameters = {
                     @Parameter(name = "id", description = "Id de búsqueda.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tratamiento encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Tratamiento no encontradO.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Tratamiento encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))})
+    @ApiResponse(responseCode = "404", description = "Tratamiento no encontradO.", content = { @Content(schema = @Schema()) })
     @GetMapping("/find/{id}")
     public ResponseEntity<TeatmentDto> findById(@PathVariable Long id){
         return teatmentServiceIn.findByIdIn(id).map(ResponseEntity::ok)
@@ -61,10 +56,8 @@ public class TeatmentController {
 
     @Operation(summary = "Buscar todos los registros de tratamiento.",
             description = "EndPoint que lista todos los registros tratamiento de la base de datos.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tratamientos encontrados con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
-            @ApiResponse(responseCode = "404", description = "TratamientoS no encontrados.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Tratamientos encontrados con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))})
+    @ApiResponse(responseCode = "404", description = "TratamientoS no encontrados.", content = { @Content(schema = @Schema()) })
     @GetMapping("/all")
     public ResponseEntity<List<TeatmentDto>> findAll(){
         return ResponseEntity
@@ -78,10 +71,8 @@ public class TeatmentController {
             parameters = {
                     @Parameter(name = "id", description = "Id de tratamiento.", required = true, example = "1"),
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tratamiento actualizado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Tratamiento actualizado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PutMapping("/update/{id}")
     public ResponseEntity<TeatmentDto> update(@PathVariable Long id,
                                               @Valid @RequestBody TeatmentRequest teatmentRequest){
@@ -96,10 +87,8 @@ public class TeatmentController {
             parameters = {
                     @Parameter(name = "id", description = "Id para eliminación.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tratamiento eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Tratamiento eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = TeatmentDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<TeatmentDto> delete(@PathVariable Long id){
         return ResponseEntity
