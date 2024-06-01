@@ -4,14 +4,14 @@ import com.codigo.clinica.mspaciente.domain.aggregates.dto.EmergencyContactDto;
 import com.codigo.clinica.mspaciente.domain.aggregates.request.EmergencyContactRequest;
 import com.codigo.clinica.mspaciente.domain.ports.in.EmergencyContactServiceIn;
 import com.codigo.clinica.mspaciente.domain.ports.out.EmergencyContactServiceOut;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EmergencyContactImpl implements EmergencyContactServiceIn {
 
     private final EmergencyContactServiceOut emergencyContactServiceOut;
