@@ -58,9 +58,4 @@ public class MedicalRecord {
     @Column(name = "doctor_id")
     private Long doctorId;
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
-    */
 }

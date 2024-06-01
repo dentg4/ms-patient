@@ -10,6 +10,7 @@ import com.codigo.clinica.mspaciente.infrastructure.dao.MedicalRecordRepository;
 import com.codigo.clinica.mspaciente.infrastructure.dao.PatientRepository;
 import com.codigo.clinica.mspaciente.infrastructure.entity.MedicalRecord;
 import com.codigo.clinica.mspaciente.infrastructure.entity.Patient;
+import com.codigo.clinica.mspaciente.infrastructure.exceptions.ResponseValidationException;
 import com.codigo.clinica.mspaciente.infrastructure.mapper.MedicalRecordMapper;
 import com.codigo.clinica.mspaciente.infrastructure.redis.RedisService;
 import com.codigo.clinica.mspaciente.infrastructure.util.Util;
@@ -49,7 +50,7 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
         if(redisInfo != null){
             medicalRecordDto = Util.convertFromString(redisInfo, MedicalRecordDto.class);
         }else{
-            MedicalRecord medicalRecord = medicalRecordRepository.findById(id).orElseThrow(()-> new RuntimeException("Medical record not found"));
+            MedicalRecord medicalRecord = medicalRecordRepository.findById(id).orElseThrow(()-> new ResponseValidationException("Medical record not found"));
             medicalRecordDto = MedicalRecordMapper.fromEntity(medicalRecord);
             DoctorDto doctorDto = Util.validateResponse(clientMsStaff.getDoctorById(medicalRecord.getDoctorId()));
             medicalRecordDto.setDoctor(doctorDto);
@@ -76,7 +77,7 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
             MedicalRecord medicalRecord = getEntity(extractedData.get(), request,true, id);
             return MedicalRecordMapper.fromEntity(medicalRecordRepository.save(medicalRecord));
         }else {
-            throw new RuntimeException();
+            throw new ResponseValidationException("Medical Record not found.");
         }
     }
 
@@ -89,7 +90,7 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
             extractedData.get().setDeletedOn(getTimestamp());
             return MedicalRecordMapper.fromEntity(medicalRecordRepository.save(extractedData.get()));
         }else {
-            throw new RuntimeException();
+            throw new ResponseValidationException("Medical Record not found.");
         }
     }
 
@@ -101,7 +102,7 @@ public class MedicalRecordAdapter implements MedicalRecordServiceOut {
         entity.setDate(medicalRecordRequest.getDate());
         entity.setStatus(Constants.STATUS_ACTIVE);
 
-        Patient patient = patientRepository.findById(medicalRecordRequest.getPatientId()).orElseThrow(()-> new RuntimeException("Patient not found"));
+        Patient patient = patientRepository.findById(medicalRecordRequest.getPatientId()).orElseThrow(()-> new ResponseValidationException("Patient not found"));
         entity.setPatient(patient);
 
 

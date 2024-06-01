@@ -31,10 +31,8 @@ public class EmergencyContactController {
 
     @Operation(summary = "Crear un Contacto de Emergencia.",
             description = "Para usar este EndPoint, debes enviar un objeto Contacto de Emergencia que será guardado en base de datos, previa validacion.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Contacto de Emergencia creado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Contacto de Emergencia creado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PostMapping("/create")
     public ResponseEntity<EmergencyContactDto> create(@Valid @RequestBody EmergencyContactRequest request){
         return ResponseEntity
@@ -44,10 +42,8 @@ public class EmergencyContactController {
 
     @Operation(summary = "Buscar todos los registros de Contactos de Emergencia.",
             description = "EndPoint que lista todos los registros de Contactos de Emergencia de la base de datos.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Contactos de Emergencia encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Contactos de Emergencia no encontradas.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Contactos de Emergencia encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))})
+    @ApiResponse(responseCode = "404", description = "Contactos de Emergencia no encontradas.", content = { @Content(schema = @Schema()) })
     @GetMapping("/all")
     public ResponseEntity<List<EmergencyContactDto>> getAll(){
         return ResponseEntity.ok(emergencyContactServiceIn.getAllIn());
@@ -58,10 +54,8 @@ public class EmergencyContactController {
             parameters = {
                     @Parameter(name = "id", description = "Id de búsqueda.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Contacto de Emergencia encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Contacto de Emergencia no encontrada.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Contacto de Emergencia encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))})
+    @ApiResponse(responseCode = "404", description = "Contacto de Emergencia no encontrada.", content = { @Content(schema = @Schema()) })
     @GetMapping("/find/{id}")
     public ResponseEntity<EmergencyContactDto> getEmergencyContactById(@PathVariable Long id){
         return emergencyContactServiceIn.findByIdIn(id).map(ResponseEntity::ok)
@@ -73,10 +67,8 @@ public class EmergencyContactController {
             parameters = {
                     @Parameter(name = "id", description = "Id de Contacto de Emergencia.", required = true, example = "1"),
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Contacto de Emergencia actualizada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Contacto de Emergencia actualizada con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PutMapping("/update/{id}")
     public ResponseEntity<EmergencyContactDto> updateEmergencyContact(@PathVariable Long id,
                                                                       @Valid @RequestBody EmergencyContactRequest request){
@@ -88,10 +80,8 @@ public class EmergencyContactController {
             parameters = {
                     @Parameter(name = "id", description = "Id para eliminación.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Contacto de Emergencia eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Contacto de Emergencia eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = EmergencyContactDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<EmergencyContactDto> deleteEmergencyContact(@PathVariable Long id){
         return ResponseEntity.ok(emergencyContactServiceIn.deleteIn(id));

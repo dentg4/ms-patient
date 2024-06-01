@@ -32,10 +32,8 @@ public class PatientController {
 
     @Operation(summary = "Crear una Paciente.",
             description = "Para usar este EndPoint, debes enviar un objeto Paciente que será guardado en base de datos, previa validacion.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Paciente creado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Paciente creado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PostMapping("/create")
     public ResponseEntity<PatientDto> create(@Valid @RequestBody PatientRequest request){
         return ResponseEntity
@@ -45,10 +43,8 @@ public class PatientController {
 
     @Operation(summary = "Buscar todos los registros de Pacientes.",
             description = "EndPoint que lista todos los registros de Pacientes de la base de datos.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Pacientes encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Pacientes no encontradas.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Pacientes encontradas con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))})
+    @ApiResponse(responseCode = "404", description = "Pacientes no encontradas.", content = { @Content(schema = @Schema()) })
     @GetMapping("/all")
     public ResponseEntity<List<PatientDto>> getAll(){
         return ResponseEntity.ok(patientServiceIn.getAllIn());
@@ -59,10 +55,8 @@ public class PatientController {
             parameters = {
                     @Parameter(name = "id", description = "Id de búsqueda.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Paciente encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
-            @ApiResponse(responseCode = "404", description = "Paciente no encontrado.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Paciente encontrado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))})
+    @ApiResponse(responseCode = "404", description = "Paciente no encontrado.", content = { @Content(schema = @Schema()) })
     @GetMapping("/find/{id}")
     public ResponseEntity<PatientDto> getPatientById(@PathVariable Long id){
         return patientServiceIn.findByIdIn(id).map(ResponseEntity::ok)
@@ -74,10 +68,8 @@ public class PatientController {
             parameters = {
                     @Parameter(name = "id", description = "Id de Paciente.", required = true, example = "1"),
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Paciente actualizado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Paciente actualizado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @PutMapping("/update/{id}")
     public ResponseEntity<PatientDto> updatePatient(@PathVariable Long id,
                                                                       @Valid @RequestBody PatientRequest request){
@@ -89,10 +81,8 @@ public class PatientController {
             parameters = {
                     @Parameter(name = "id", description = "Id para eliminación.", required = true, example = "1")
             })
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Paciente eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
-    })
+    @ApiResponse(responseCode = "200", description = "Paciente eliminado con éxito.", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PatientDto.class))})
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor.", content = { @Content(schema = @Schema()) })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<PatientDto> deletePatient(@PathVariable Long id){
         return ResponseEntity.ok(patientServiceIn.deleteIn(id));

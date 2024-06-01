@@ -9,6 +9,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class PatientMapper {
+    private PatientMapper() {
+    }
+
     public static PatientDto fromEntity(Patient entity){
         return PatientDto.builder()
                 .idPatient(entity.getId())
@@ -22,7 +25,7 @@ public class PatientMapper {
                 .email(entity.getEmail())
                 .address(entity.getAddress())
                 .allergies(entity.getAllergies())
-                .emergencyContacts(mapList(entity.getEmergencyContacts(),(emergencyContact -> {return emergencyContact.getId();})))
+                .emergencyContacts(mapList(entity.getEmergencyContacts(),(emergencyContact ->  emergencyContact.getId())))
                 .medicalRecords(mapList(entity.getMedicalRecords(), medicalRecord -> medicalRecord.getId()))
                 .teatments(mapList(entity.getTeatments(), teatment -> teatment.getId()))
                 .status(entity.getStatus())
@@ -39,7 +42,7 @@ public class PatientMapper {
     public static  <T, R> List<R> mapList(List<T> list, Function<T, R> mapper) {
 
         return list != null
-                ? list.stream().map(mapper).collect(Collectors.toList())
+                ? list.stream().map(mapper).toList()
                 : Collections.emptyList();
     }
 

@@ -4,9 +4,10 @@ import com.codigo.clinica.mspaciente.domain.aggregates.dto.MedicalRecordDto;
 import com.codigo.clinica.mspaciente.infrastructure.entity.MedicalRecord;
 
 public class MedicalRecordMapper {
+    private MedicalRecordMapper() {
+    }
+
     public static MedicalRecordDto fromEntity(MedicalRecord entity) {
-        //traer el doctor id
-        //paciente id
         return MedicalRecordDto.builder()
                 .id(entity.getId())
                 .diagnos(entity.getDiagnos())

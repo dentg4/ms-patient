@@ -44,7 +44,7 @@ class PatientAdapterTest {
     void createPatientOut() {
 
         PatientRequest request= PatientRequest.builder()
-                .identificationType("DNI").identificationNumber("73103894")
+                .identificationNumber("73103894")
                 .gender("Masculino").phone("956940085")
                 .email("quispejhonn021@gmail.com").build();
         ReniecDto reniecDto = ReniecDto.builder().nombres("Jhon")
@@ -72,8 +72,8 @@ class PatientAdapterTest {
         Long id=1l;
         PatientDto patientDto=PatientDto.builder()
                 .idPatient(id).gender("Masculino").phone("95694085")
-                        .name("Jhon").surname("surname").identificationType("DNI")
-                        .identificationNumber("73103894").build();
+                .name("Jhon").surname("surname").identificationType("DNI")
+                .identificationNumber("73103894").build();
         when(redisService.getFromRedis(anyString())).thenReturn(Util.convertToString(patientDto));
 
         PatientDto reponse = patientAdapter.findByIdOut(id).orElseThrow();
